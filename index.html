@@ -166,9 +166,8 @@
         <path d="M9 3h6"/><path d="M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/>
       </svg>
     </div>
-    <span class="badge jua">🔬 가상 실험실 모음</span>
     <h1 class="jua">수진T.의<br><span class="accent">중학교 과학 LAB</span></h1>
-    <p class="sub">학년을 고르고, 실험을 시작해 보세요!</p>
+    <p class="sub">학년을 고르고 탐구를 시작해 보세요!</p>
   </header>
 
   <!-- 첫 화면: 학년 카드 -->
@@ -218,7 +217,6 @@ document.getElementById('grades').innerHTML = GRADES.map((g,i) => `
     <span class="blob"></span>
     <div class="num jua">${i+1}</div>
     <h2 class="jua">${g.emoji} ${g.label}</h2>
-    <p>${g.intro}</p>
     <div class="meta">
       <span class="pill">${g.apps.length ? '실험 ' + g.apps.length + '개' : '준비 중'}</span>
       <span class="arrow">→</span>
