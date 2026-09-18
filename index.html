@@ -1,273 +1,1559 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>수진T의 중학교 과학 LAB</title>
-<!-- 최종안 · 고운돋움(A안 서체) + 세이지/버터/파우더블루(C안 색상) -->
-<meta name="description" content="중학교 과학 수업용 가상 실험실 모음">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
 <style>
-  /* ============================================================
-     색상 (라일락 계열) — 여기 값만 바꾸면 전체 색이 바뀝니다
-     ============================================================ */
-  :root{
-    --bg:#fbf8ff;          /* 배경 (아주 연한 라일락) */
-    --ink:#35294a;         /* 기본 글자 */
-    --ink-soft:#716488;    /* 보조 글자 */
-    --card:#ffffff;
-    --line:#ece4f8;
-    --p1:#dccdf5;          /* 연라일락 */
-    --p2:#bba6e6;          /* 라일락 */
-    --p3:#8f74cf;          /* 버튼 */
-    --p3-dark:#6e55ad;     /* 버튼 그림자 */
-    --g1:#cfe3c8; --g1-dark:#5b8a4e; --g1-light:#f1f7ee;   /* 1학년 */
-    --g2:#f7e2b5; --g2-dark:#8a5f1a; --g2-light:#fdf7ea;   /* 2학년 */
-    --g3:#cbd6f2; --g3-dark:#5566b0; --g3-light:#eef1fb;   /* 3학년 */
-    --teacher:#f59e0b;
-    /* 학년 화면 강조색 (스크립트가 바꿈) */
-    --gc:var(--p2); --gcd:var(--p3); --gcl:#f4effd;
+  :root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  html,body{margin:0}
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#faf9f7}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>미래의 내 가족</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@700;800&display=swap">
+<style>
+:root{
+  --paper:#EDF2F1; --surface:#FFFFFF; --surface2:#F5F9F8;
+  --ink:#16222B; --ink2:#53666F; --line:#D2DEDB;
+  --dom:#0E7C86; --domSoft:#DBEFEF; --domInk:#075A62;
+  --rec:#C8386A; --recSoft:#FAE1EA; --recInk:#992A51;
+  --accent:#EC9B2D; --accentSoft:#FCEFD9;
+  --ok:#217A52; --okSoft:#DCF1E6;
+  --bad:#B33A2B; --badSoft:#FBE4E0;
+  --shadow:0 1px 2px rgba(18,40,45,.06), 0 8px 24px -12px rgba(18,40,45,.22);
+  --radius:14px;
+  --display:'Jua', 'Noto Sans KR', system-ui, sans-serif;
+  --body:'Noto Sans KR', system-ui, -apple-system, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1418; --surface:#15222A; --surface2:#1A2C34;
+    --ink:#E8F1EF; --ink2:#9CB2BA; --line:#2A3E47;
+    --dom:#3FC3C9; --domSoft:#123A3E; --domInk:#7FE3E6;
+    --rec:#FF82A6; --recSoft:#3D1B29; --recInk:#FFB3C8;
+    --accent:#FFC062; --accentSoft:#3B2A11;
+    --ok:#5FD08A; --okSoft:#123526;
+    --bad:#FF8E7C; --badSoft:#3A1A15;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.7);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{min-height:100%}
-  body{
-    font-family:'Gowun Dodum',system-ui,sans-serif;
-    color:var(--ink);
-    background:linear-gradient(180deg,#f3edff 0%,var(--bg) 320px);
-    background-color:var(--bg);
-    line-height:1.55;
-    word-break:keep-all;
-    -webkit-font-smoothing:antialiased;
-  }
-  .jua{font-family:'Jua',sans-serif;font-weight:400}
-  .wrap{max-width:1040px;margin:0 auto;padding:28px 16px 56px}
+}
+:root[data-theme="dark"]{
+  --paper:#0C1418; --surface:#15222A; --surface2:#1A2C34;
+  --ink:#E8F1EF; --ink2:#9CB2BA; --line:#2A3E47;
+  --dom:#3FC3C9; --domSoft:#123A3E; --domInk:#7FE3E6;
+  --rec:#FF82A6; --recSoft:#3D1B29; --recInk:#FFB3C8;
+  --accent:#FFC062; --accentSoft:#3B2A11;
+  --ok:#5FD08A; --okSoft:#123526;
+  --bad:#FF8E7C; --badSoft:#3A1A15;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+p{margin:0}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
 
-  /* ---------- 교사 모드 배너 ---------- */
-  .teacher-bar{
-    display:none;background:#fff7e6;border:2px dashed var(--teacher);
-    color:#8a5300;border-radius:14px;padding:10px 14px;margin-bottom:18px;
-    font-weight:600;font-size:14px;align-items:center;gap:8px;flex-wrap:wrap
-  }
-  body.teacher .teacher-bar{display:flex}
+/* ---------- header ---------- */
+.masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--dom);font-weight:700}
+.masthead h1{font-size:clamp(26px,5.4vw,40px);letter-spacing:-.01em;line-height:1.15}
+.masthead h1 em{font-style:normal;color:var(--dom)}
+.sub{color:var(--ink2);font-size:13.5px;margin-top:4px}
+.chip-unit{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--ink2)}
 
-  /* ---------- 헤더 ---------- */
-  header{text-align:center;margin:12px 0 34px}
-  .logo{
-    width:84px;height:84px;margin:0 auto 14px;border-radius:26px;
-    background:linear-gradient(145deg,var(--p1),var(--p3));
-    display:grid;place-items:center;
-    box-shadow:0 6px 0 var(--p3-dark),0 14px 28px rgba(143,116,207,.22);
-    animation:float 3.2s ease-in-out infinite;
-  }
-  @keyframes float{50%{transform:translateY(-6px)}}
-  .badge{
-    display:inline-block;background:#fff;border:2px solid var(--line);
-    color:var(--p3);border-radius:999px;padding:4px 14px;font-size:14px;margin-bottom:10px
-  }
-  h1{font-size:clamp(30px,6.5vw,52px);line-height:1.15;letter-spacing:-.5px}
-  h1 .accent{color:var(--p3)}
-  .sub{color:var(--ink-soft);margin-top:10px;font-size:clamp(15px,2.6vw,17px)}
+/* ---------- step rail ---------- */
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);margin-inline:-16px;padding:8px 16px;border-bottom:1px solid var(--line)}
+.rail ol{list-style:none;display:flex;gap:6px;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.rail ol::-webkit-scrollbar{display:none}
+.rail li{flex:0 0 auto}
+.rail button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 13px 6px 6px;font-size:12.5px;font-weight:500;color:var(--ink2);white-space:nowrap;transition:.15s}
+.rail button .n{width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);border:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--ink2)}
+.rail button[data-state="done"] .n{background:var(--domSoft);border-color:transparent;color:var(--domInk)}
+.rail button[data-state="on"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.rail button[data-state="on"] .n{background:var(--accent);border-color:transparent;color:#1d1405}
+.rail button[disabled]{opacity:.45;cursor:not-allowed}
 
-  /* ---------- 학년 카드 ---------- */
-  .grades{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media (max-width:760px){.grades{grid-template-columns:1fr}}
-  .grade{
-    --c:var(--g1);--cd:var(--g1-dark);--cl:var(--g1-light);
-    position:relative;overflow:hidden;cursor:pointer;text-align:left;
-    border:3px solid var(--c);border-radius:26px;background:var(--card);
-    padding:22px 22px 20px;font:inherit;color:inherit;
-    box-shadow:0 7px 0 var(--c);transition:transform .12s, box-shadow .12s;
-  }
-  .grade:hover{transform:translateY(-3px);box-shadow:0 10px 0 var(--c)}
-  .grade:active{transform:translateY(5px);box-shadow:0 2px 0 var(--c)}
-  .grade:focus-visible{outline:4px solid var(--p2);outline-offset:3px}
-  .grade.g2{--c:var(--g2);--cd:var(--g2-dark);--cl:var(--g2-light)}
-  .grade.g3{--c:var(--g3);--cd:var(--g3-dark);--cl:var(--g3-light)}
-  .grade .blob{
-    position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;
-    background:var(--cl);opacity:1
-  }
-  .grade .num{
-    position:relative;width:64px;height:64px;border-radius:20px;background:var(--c);
-    display:grid;place-items:center;font-size:34px;color:var(--cd);margin-bottom:14px
-  }
-  .grade h2{font-size:30px;position:relative}
-  .grade p{color:var(--ink-soft);font-size:15px;margin-top:2px;position:relative}
-  .grade .meta{
-    margin-top:16px;display:flex;justify-content:space-between;align-items:center;position:relative
-  }
-  .pill{background:var(--cl,var(--bg));border:2px solid var(--c,var(--line));border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;color:var(--cd,var(--p3))}
-  .arrow{width:38px;height:38px;border-radius:50%;background:var(--cd);color:#fff;display:grid;place-items:center;font-size:20px}
+/* ---------- panels ---------- */
+.panel{margin-top:22px}
+.panel[hidden]{display:none!important}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card-pad{padding:18px}
+.stepline{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.stepline .tag{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--accent);background:var(--accentSoft);padding:3px 8px;border-radius:6px}
+.panel h2{font-size:clamp(20px,3.6vw,26px)}
+.lede{color:var(--ink2);font-size:14px;margin:6px 0 18px;max-width:62ch}
 
-  /* ---------- 하위(앱) 화면 ---------- */
-  .view{display:none}
-  .view.on{display:block;animation:pop .28s ease}
-  @keyframes pop{from{opacity:0;transform:translateY(10px)}}
-  .topline{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
-  .back{
-    font:inherit;font-family:'Jua';font-size:18px;cursor:pointer;
-    background:#fff;border:3px solid var(--p2);color:var(--p3);border-radius:16px;
-    padding:8px 16px;box-shadow:0 4px 0 var(--p2)
-  }
-  .back:active{transform:translateY(3px);box-shadow:0 1px 0 var(--p2)}
-  .topline h2{font-size:clamp(26px,5vw,36px)}
-  .apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-  .app{
-    background:var(--card);border:3px solid var(--line);border-radius:24px;padding:20px;
-    display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 0 var(--line);border-top:8px solid var(--gc)
-  }
-  .app .head{display:flex;gap:14px;align-items:center}
-  .icon{
-    flex:none;width:60px;height:60px;border-radius:18px;font-size:32px;
-    display:grid;place-items:center;background:var(--gcl);border:2px solid var(--gc)
-  }
-  .unit{display:inline-block;font-size:12.5px;font-weight:700;color:var(--gcd);background:var(--gcl);border-radius:8px;padding:2px 8px}
-  .app h3{font-size:23px;line-height:1.25;margin-top:3px}
-  .app .desc{color:var(--ink-soft);font-size:15px;flex:1}
-  .start{
-    display:block;text-align:center;text-decoration:none;font-family:'Jua';font-size:21px;
-    background:var(--gcd);color:#fff;border-radius:16px;padding:11px;
-    box-shadow:0 5px 0 color-mix(in srgb,var(--gcd) 70%,#000);transition:transform .1s, box-shadow .1s
-  }
-  .start:hover{filter:brightness(1.08)}
-  .start:active{transform:translateY(4px);box-shadow:0 1px 0 color-mix(in srgb,var(--gcd) 70%,#000)}
-  .t-tools{display:none;gap:8px}
-  body.teacher .t-tools{display:flex}
-  .t-btn{
-    flex:1;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;
-    border:2px solid var(--teacher);background:#fff7e6;color:#8a5300;border-radius:12px;padding:7px
-  }
-  .soon{
-    border:3px dashed var(--gc);border-radius:24px;padding:34px 20px;text-align:center;color:var(--ink-soft);
-    background:rgba(255,255,255,.6)
-  }
-  .soon .big{font-size:44px}
-  .soon b{display:block;font-family:'Jua';font-weight:400;font-size:22px;color:var(--gcd);margin:6px 0 2px}
+/* ---------- warmup pedigree ---------- */
+.warm{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding:16px;background:var(--surface2);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:20px}
+@media(min-width:760px){.warm{grid-template-columns:330px minmax(0,1fr);align-items:center}}
+.warm svg{width:100%;height:auto;max-width:100%;display:block}
+.warm h3{font-size:16px;margin-bottom:4px}
 
-  footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  .toast{
-    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(30px);opacity:0;
-    background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;transition:.25s;pointer-events:none
-  }
-  .toast.on{opacity:1;transform:translateX(-50%)}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ---------- trait table ---------- */
+.builder{display:grid;gap:18px}
+@media(min-width:880px){.builder{grid-template-columns:300px minmax(0,1fr);align-items:start}}
+.stage{background:linear-gradient(170deg,#E9F4F3 0%,#F8F1E4 100%);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
+@media(min-width:880px){.stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px)}}
+.babygrid{display:grid;gap:16px}
+@media(min-width:760px){.babygrid{grid-template-columns:260px minmax(0,1fr);align-items:center}}
+.stage svg{width:100%;height:auto;display:block}
+.stage .who{font-family:var(--display);font-size:15px;color:#20323a;text-align:center;margin-bottom:2px}
+.looks{display:flex;flex-direction:column;gap:7px;align-items:center;margin-top:8px}
+.lkgrp{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+.lklabel{font-size:11.5px;color:#43555c;font-weight:700;min-width:44px;text-align:right}
+.lkrow{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.looks button{width:26px;height:26px;border-radius:50%;border:2px solid rgba(23,40,45,.25);padding:0}
+.looks button[aria-pressed="true"]{border-color:#16222B;box-shadow:0 0 0 2px #fff inset}
+.looks .pill{width:auto;height:26px;border-radius:999px;padding:0 10px;font-size:11.5px;background:#fff;color:#20323a;font-weight:700}
+
+.trow{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:var(--surface);display:grid;gap:9px;margin-bottom:9px}
+@media(min-width:620px){.trow{grid-template-columns:104px minmax(0,1fr) auto;align-items:center;gap:12px}}
+.tname{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px}
+.tname .sym{font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink2)}
+.seg{display:flex;gap:5px;flex-wrap:wrap}
+.seg button{border:1px solid var(--line);background:var(--surface2);border-radius:9px;padding:6px 11px;font-size:13px;font-weight:500;transition:.12s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.gt{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.gt button,.gt .fixed{font-family:var(--mono);font-weight:800;font-size:14px;border-radius:9px;padding:6px 10px;border:1px solid var(--line);background:var(--surface2)}
+.gt button[aria-pressed="true"]{background:var(--domSoft);border-color:var(--dom);color:var(--domInk)}
+.gt .fixed{background:var(--recSoft);border-color:var(--rec);color:var(--recInk);display:inline-block}
+.gt .hint{font-size:11.5px;color:var(--ink2);font-family:var(--body);font-weight:400}
+
+/* ---------- allele chips ---------- */
+.allele{font-family:var(--mono);font-weight:800;display:inline-grid;place-items:center;min-width:30px;height:32px;padding:0 7px;border-radius:9px;font-size:15px}
+.allele.d{background:var(--domSoft);color:var(--domInk);border:1.5px solid var(--dom)}
+.allele.r{background:var(--recSoft);color:var(--recInk);border:1.5px solid var(--rec)}
+.allele.q{background:var(--surface2);color:var(--ink2);border:1.5px dashed var(--line)}
+
+/* ---------- meiosis ---------- */
+.meio{display:grid;gap:12px}
+.mrow{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface)}
+@media(min-width:720px){.mrow{grid-template-columns:110px repeat(2,minmax(0,1fr));}}
+.mside{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mside .lbl{font-size:11.5px;color:var(--ink2);width:100%;font-weight:700;letter-spacing:.04em}
+.coin{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:15px;background:var(--accentSoft);border:2px solid var(--accent);color:var(--ink)}
+.coin.spin{animation:flip .12s linear infinite}
+@keyframes flip{0%{transform:rotateX(0)}100%{transform:rotateX(180deg)}}
+@media(prefers-reduced-motion:reduce){.coin.spin{animation:none}}
+.arrow{color:var(--ink2);font-size:13px}
+
+/* ---------- predict ---------- */
+.prow{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:var(--surface);display:grid;gap:9px;margin-bottom:9px}
+@media(min-width:720px){.prow{grid-template-columns:104px 150px minmax(0,1fr);align-items:center;gap:12px}}
+.gametes{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink2)}
+.opts{display:flex;gap:5px;flex-wrap:wrap}
+.opts button{font-family:var(--mono);font-weight:800;font-size:14px;border:1px solid var(--line);background:var(--surface2);border-radius:9px;padding:6px 10px}
+.opts button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.prow[data-mark="ok"]{border-color:var(--ok);background:var(--okSoft)}
+.prow[data-mark="no"]{border-color:var(--bad);background:var(--badSoft)}
+.mark{font-size:12.5px;font-weight:700;grid-column:1/-1}
+.mark.ok{color:var(--ok)}.mark.no{color:var(--bad)}
+
+/* ---------- family ---------- */
+.family{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:760px){.family{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.member{background:linear-gradient(170deg,#E9F4F3 0%,#F8F1E4 100%);border:1px solid var(--line);border-radius:var(--radius);padding:10px;text-align:center}
+.member svg{width:100%;height:auto}
+.member .nm{font-family:var(--display);font-size:14px;color:#20323a}
+.traitlist{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:7px}
+.traitlist span{font-size:10.5px;background:rgba(255,255,255,.82);border:1px solid rgba(22,34,43,.14);color:#20323a;border-radius:999px;padding:2px 7px}
+.traitlist span.diff{background:#FFE6B8;border-color:#E0A23A;font-weight:700}
+
+/* ---------- inquiry note ---------- */
+.note{border:2px dashed var(--dom);background:var(--surface2);border-radius:var(--radius);padding:15px 16px;margin-top:20px}
+.q{display:flex;gap:9px;align-items:flex-start;font-weight:700;font-size:15px;margin-bottom:4px}
+.q .ic{flex:0 0 auto;width:22px;height:22px;border-radius:7px;background:var(--dom);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:800;margin-top:2px}
+.src{font-size:11.5px;color:var(--ink2);margin-left:31px}
+.choices{display:grid;gap:7px;margin:11px 0 0 31px}
+.choices button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;font-size:13.5px;line-height:1.45;transition:.12s}
+.choices button:hover{border-color:var(--dom)}
+.choices button[data-res="ok"]{background:var(--okSoft);border-color:var(--ok);font-weight:700}
+.choices button[data-res="no"]{background:var(--badSoft);border-color:var(--bad);opacity:.85}
+.explain{margin:10px 0 0 31px;font-size:13px;background:var(--domSoft);color:var(--domInk);border-radius:10px;padding:10px 12px}
+.explain[hidden]{display:none}
+.openq{margin-top:14px}
+.openq textarea{width:100%;min-height:78px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13.5px;background:var(--surface);color:var(--ink);resize:vertical}
+details.model{margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+details.model summary{cursor:pointer;padding:9px 12px;font-size:13px;font-weight:700;color:var(--dom);list-style:none}
+details.model summary::-webkit-details-marker{display:none}
+details.model summary::before{content:"▸ ";}
+details.model[open] summary::before{content:"▾ ";}
+details.model .body{padding:0 12px 12px;font-size:13px;color:var(--ink2)}
+
+/* ---------- punnett ---------- */
+.punnett{border-collapse:separate;border-spacing:5px;font-family:var(--mono);font-weight:800}
+.punnett th,.punnett td{width:62px;height:52px;text-align:center;border-radius:10px;font-size:15px}
+.punnett th{background:var(--surface2);border:1px solid var(--line);color:var(--ink2)}
+.punnett td{border:1.5px solid var(--line);background:var(--surface)}
+.punnett td.dom{background:var(--domSoft);border-color:var(--dom);color:var(--domInk)}
+.punnett td.rec{background:var(--recSoft);border-color:var(--rec);color:var(--recInk)}
+.scrollx{overflow-x:auto}
+.pct{display:flex;gap:6px;flex-wrap:wrap;margin:11px 0 0 31px}
+.pct button{font-family:var(--mono);font-weight:800;font-size:14px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px}
+.pct button:hover{border-color:var(--dom)}
+.pct button[data-res="ok"]{background:var(--okSoft);border-color:var(--ok);color:var(--ok)}
+.pct button[data-res="no"]{background:var(--badSoft);border-color:var(--bad);opacity:.85}
+.s3bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:6px 0 18px}
+.s3bar .lede{flex:1 1 320px;margin:0}
+.punnwrap{display:grid;gap:16px}
+@media(min-width:680px){.punnwrap{grid-template-columns:auto minmax(0,1fr);align-items:start}}
+.lgcard{border:1px solid var(--line);background:var(--surface2);border-radius:12px;padding:12px 14px}
+.lgcard h4{font-family:var(--display);font-weight:400;font-size:15px;margin:0 0 6px}
+.lgrow{display:flex;gap:8px;align-items:baseline;font-size:13.5px;margin-bottom:3px}
+.lgrow b{font-family:var(--mono);font-size:13px;border-radius:6px;padding:2px 7px}
+.lgrow b.d{background:var(--domSoft);color:var(--domInk);border:1px solid var(--dom)}
+.lgrow b.r{background:var(--recSoft);color:var(--recInk);border:1px solid var(--rec)}
+.lgnote{font-size:12px;color:var(--ink2);margin-top:7px;line-height:1.5}
+.idbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin-bottom:18px;box-shadow:var(--shadow)}
+.idbar label{font-size:13px;font-weight:700;color:var(--ink2)}
+.idbar input{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-family:inherit;font-size:14px;background:var(--surface2);color:var(--ink);width:150px}
+.idbar input:focus{outline:2px solid var(--dom);outline-offset:1px}
+.idbar .idnote{font-size:12px;color:var(--ink2);margin-left:auto}
+.pickhint{font-size:12px;color:var(--ink2);text-align:center;margin:8px 0 0}
+.picked{text-align:center;font-size:12.5px;font-weight:700;color:#3f6b6f;margin:6px 0 0}
+.picked[data-done="1"]{color:#1f7a4d}
+.looks .pill[disabled]{opacity:.45;cursor:not-allowed}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(14,26,32,.55);display:grid;place-items:center;padding:18px}
+.modal[hidden]{display:none!important}
+.modal .box{background:var(--surface);border-radius:16px;padding:16px;max-width:min(960px,96vw);max-height:92vh;overflow:auto;box-shadow:var(--shadow)}
+.modal .box img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block}
+.modal .row{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px;align-items:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--surface);padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:500;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+.toast[hidden]{display:none!important}
+
+/* ---------- buttons ---------- */
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--surface);border-radius:11px;padding:11px 20px;font-weight:700;font-size:14.5px;font-family:var(--display);transition:.14s}
+.btn:hover{transform:translateY(-1px)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.key{background:var(--accent);border-color:var(--accent);color:#231705}
+.tiny{font-size:12px;color:var(--ink2)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:12px}
+.legend b{font-family:var(--mono)}
+.keynote{display:flex;gap:11px;align-items:flex-start;border:2px solid var(--accent);background:var(--accentSoft);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;animation:keyglow 2.4s ease-in-out infinite}
+.keynote .kico{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#231705;display:grid;place-items:center;font-size:17px;animation:keybob 2.4s ease-in-out infinite}
+.keynote p{font-size:13.5px;line-height:1.6;color:var(--ink)}
+.keynote b{color:var(--recInk)}
+@keyframes keyglow{0%,100%{box-shadow:0 0 0 0 rgba(236,155,45,.35)}50%{box-shadow:0 0 0 7px rgba(236,155,45,0)}}
+@keyframes keybob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.keynote,.keynote .kico{animation:none}}
+.callout{font-size:12.5px;color:var(--ink2);background:var(--surface2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:9px 12px;margin-top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="teacher-bar">👩‍🏫 교사 모드입니다 — 각 앱 카드에 교사용 링크가 표시됩니다. 이 주소는 학생에게 공유하지 마세요.</div>
-
-  <header>
-    <div class="logo">
-      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M9 3h6"/><path d="M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/>
-      </svg>
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">중학교 과학 3 · Ⅴ. 생식과 유전 › 2. 유전</div>
+      <h1>유전 원리로 알아보는<br><em>미래의 내 가족</em></h1>
+      <p class="sub">나의 형질을 정하고, 생식세포를 만들고, 태어날 자녀의 형질을 직접 예상해 보는 모의 활동</p>
     </div>
-    <h1 class="jua">수진T의<br><span class="accent">중학교 과학 LAB</span></h1>
-    <p class="sub">학년을 고르고 탐구를 시작해 보세요!</p>
+    <div class="chip-unit">형질 7가지 · 자녀 2명</div>
   </header>
 
-  <!-- 첫 화면: 학년 카드 -->
-  <section id="home" class="view on">
-    <div class="grades" id="grades"></div>
-  </section>
+  <nav class="rail" aria-label="활동 단계">
+    <ol id="rail"></ol>
+  </nav>
 
-  <!-- 하위 화면: 앱 카드 -->
-  <section id="grade-view" class="view">
-    <div class="topline">
-      <button class="back" onclick="location.hash=''">← 학년 선택</button>
-      <h2 class="jua" id="gv-title"></h2>
+  <!-- ================= STEP 1 ================= -->
+  <section class="panel" id="panel1">
+    <div class="stepline"><span class="tag">STEP 1</span></div>
+    <h2>나의 유전형질 정하기</h2>
+    <p class="lede">먼저 가계도로 우열 관계를 판단하는 연습부터. 그다음 7가지 형질에 대한 나의 표현형과 유전자형을 정합니다.</p>
+
+    <div class="idbar">
+      <label for="stuNo">학번</label>
+      <input id="stuNo" type="text" inputmode="numeric" maxlength="12" placeholder="예) 30512" autocomplete="off">
+      <label for="stuName">이름</label>
+      <input id="stuName" type="text" maxlength="20" placeholder="예) 김과학" autocomplete="off">
+      <span class="idnote">저장하는 가족 이미지에 함께 표시됩니다</span>
     </div>
-    <div class="apps" id="apps"></div>
+
+    <div class="warm">
+      <div id="pedigree"></div>
+      <div>
+        <h3>워밍업 · 가계도로 우열 관계 찾기</h3>
+        <p class="tiny" style="margin-bottom:8px">보조개가 <b>있는</b> 부모 사이에서 보조개가 <b>없는</b> 자녀가 태어났습니다.</p>
+        <div id="warmQ"></div>
+      </div>
+    </div>
+
+    <div class="builder">
+      <div class="stage">
+        <div class="who">나</div>
+        <div id="meAvatar"></div>
+        <p class="picked" id="mePicked"></p>
+        <p class="pickhint">피부색과 머리 색, 성별을 골라 보세요</p>
+        <div class="looks" id="meLooks"></div>
+        <p class="tiny" style="text-align:center;margin-top:6px;color:#4a5d67">성별은 성염색체(XX·XY)로 정해집니다.<br>피부색·머리 색은 대립 형질이 뚜렷하지 않아<br>이 활동의 유전 형질에서 제외했어요</p>
+      </div>
+      <div>
+        <div class="keynote">
+          <span class="kico" aria-hidden="true">!</span>
+          <p>우성 형질을 고를 때 <b>순종(AA)</b>으로 할지 <b>잡종(Aa)</b>으로 할지에 따라 자녀에게 나타날 수 있는 형질이 <b>완전히 달라집니다.</b> 일부러 다르게 골라 보고 결과를 비교해 보세요.</p>
+        </div>
+        <div id="meTraits"></div>
+        <div class="legend">
+          <span><b style="color:var(--dom)">대문자</b> = 우성 대립유전자</span>
+          <span><b style="color:var(--rec)">소문자</b> = 열성 대립유전자</span>
+          <span>혈액형만 A·B·O 기호 사용</span>
+        </div>
+        <div class="callout"><b>열성 형질</b>을 고르면 유전자형이 자동으로 정해집니다. 열성 형질은 대립유전자 2개가 모두 열성일 때만 겉으로 드러나기 때문이에요(= 항상 순종).</div>
+      </div>
+    </div>
+
+    <div class="note" id="note1"></div>
+
+    <div class="actions">
+      <button class="btn" data-go="2">배우자 형질 정하러 가기 →</button>
+      <span class="tiny" id="me-status"></span>
+    </div>
   </section>
 
-  <footer>© 수진T · 중학교 과학 수업용</footer>
+  <!-- ================= STEP 2 ================= -->
+  <section class="panel" id="panel2" hidden>
+    <div class="stepline"><span class="tag">STEP 2</span></div>
+    <h2>배우자의 희망 형질 정하기</h2>
+    <p class="lede">미래의 배우자가 어떤 형질을 가졌으면 좋겠나요? 같은 방식으로 표현형과 유전자형을 정합니다.</p>
+
+    <div class="builder">
+      <div class="stage">
+        <div class="who">배우자</div>
+        <div id="spAvatar"></div>
+        <p class="picked" id="spPicked"></p>
+        <p class="pickhint">배우자의 피부색과 머리 색을 골라 보세요<br><span style="color:#7a8c93">성별은 나와 반대로 자동 설정됩니다</span></p>
+        <div class="looks" id="spLooks"></div>
+      </div>
+      <div>
+        <div class="keynote">
+          <span class="kico" aria-hidden="true">!</span>
+          <p>우성 형질을 고를 때 <b>순종(AA)</b>으로 할지 <b>잡종(Aa)</b>으로 할지에 따라 자녀에게 나타날 수 있는 형질이 <b>완전히 달라집니다.</b> 일부러 다르게 골라 보고 결과를 비교해 보세요.</p>
+        </div>
+        <div id="spTraits"></div>
+      </div>
+    </div>
+
+    <div class="note" id="note2"></div>
+
+    <div class="actions">
+      <button class="btn ghost" data-go="1">← 돌아가기</button>
+      <button class="btn" data-go="3">생식세포 만들러 가기 →</button>
+      <span class="tiny" id="sp-status"></span>
+    </div>
+  </section>
+
+  <!-- ================= STEP 3 ================= -->
+  <section class="panel" id="panel3" hidden>
+    <div class="stepline"><span class="tag">STEP 3</span></div>
+    <h2 id="s3title">생식세포 만들기</h2>
+    <div class="s3bar">
+      <p class="lede">감수분열이 일어나면 쌍을 이루던 대립유전자가 나뉘어 서로 다른 생식세포로 들어갑니다. 어떤 생식세포가 선택될지는 우연히 정해집니다. 생식세포 만들기 버튼을 눌러보세요.</p>
+      <button class="btn key" id="rollBtn">생식세포 만들기</button>
+    </div>
+
+    <div class="meio" id="meio"></div>
+
+    <div class="actions">
+      <button class="btn ghost" data-go="2">← 돌아가기</button>
+      <button class="btn" data-go="4" id="toPredict" disabled>자녀 유전자형 예상하러 가기 →</button>
+    </div>
+
+    <div class="note" id="note3"></div>
+  </section>
+
+  <!-- ================= STEP 4 ================= -->
+  <section class="panel" id="panel4" hidden>
+    <div class="stepline"><span class="tag">STEP 4</span></div>
+    <h2 id="s4title">자녀의 유전자형 예상하기</h2>
+    <p class="lede">두 생식세포가 수정되면 대립유전자가 다시 쌍을 이룹니다. 각 형질에서 자녀의 유전자형이 무엇이 될지 직접 골라 보세요.</p>
+
+    <div id="predict"></div>
+
+    <div class="actions">
+      <button class="btn key" id="checkBtn">정답 확인</button>
+      <button class="btn" id="revealBtn" disabled>자녀 만나기 →</button>
+      <span class="tiny">누를 때마다 성별, 머리색이 달라져요</span>
+      <span class="tiny" id="score"></span>
+    </div>
+
+    <div id="babyBox" hidden style="margin-top:22px"></div>
+
+    <div class="note" id="note4"></div>
+
+    <div class="actions" id="afterBaby" hidden>
+      <button class="btn" id="nextKidBtn">둘째 자녀 만들기 →</button>
+    </div>
+  </section>
+
+  <!-- ================= STEP 5 ================= -->
+  <section class="panel" id="panel5" hidden>
+    <div class="stepline"><span class="tag">STEP 5</span></div>
+    <h2>우리 가족, 그리고 형제 비교</h2>
+    <p class="lede">같은 부모에게서 태어났는데 두 자녀의 모습이 다릅니다. 노란색으로 표시된 형질이 서로 다른 부분이에요.</p>
+
+    <div class="family" id="family"></div>
+
+    <div class="note" id="note5"></div>
+
+    <div class="actions">
+      <button class="btn" data-go="6">확률로 정리하기 →</button>
+    </div>
+  </section>
+
+  <!-- ================= STEP 6 ================= -->
+  <section class="panel" id="panel6" hidden>
+    <div class="stepline"><span class="tag">STEP 6</span></div>
+    <h2>확률로 정리하기</h2>
+    <p class="lede">우리 부부에게서 셋째가 태어난다면? 퍼넷 사각형으로 가능한 모든 경우를 세어 확률을 구해 봅시다.</p>
+
+    <div class="card card-pad">
+      <div class="seg" id="punnPick" style="margin-bottom:14px"></div>
+      <div class="punnwrap">
+        <div class="scrollx"><div id="punn"></div></div>
+        <div id="punnLegend"></div>
+      </div>
+    </div>
+
+    <div class="note" id="punnQuiz"></div>
+
+    <div class="actions">
+      <button class="btn key" id="saveImgBtn" disabled>🖼️ 가족 비교 이미지 저장</button>
+      <button class="btn ghost" id="restart">처음부터 다시 하기</button>
+      <span class="tiny" id="saveHint">확률 문제 0 / 7 완료 — 7가지 형질을 모두 맞히면 저장할 수 있어요.</span>
+    </div>
+  </section>
+
+  <div class="modal" id="imgModal" hidden>
+    <div class="box">
+      <img id="imgModalImg" alt="우리 가족 비교 이미지">
+      <div class="row">
+        <span class="tiny" id="imgModalHint"></span>
+        <button class="btn ghost" id="imgClose">닫기</button>
+        <button class="btn key" id="imgSave" hidden>이미지 저장</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast" hidden></div>
 </div>
-<div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   ✏️ 앱 목록 — 새 웹앱을 만들면 해당 학년의 apps 배열에 항목을 추가하세요.
-   { icon, name, unit, desc, url }
-   ============================================================ */
-const GRADES = [
-  { id:'g1', label:'1학년', emoji:'🌍', intro:'과학의 첫걸음을 내딛어요', apps:[] },
-  { id:'g2', label:'2학년', emoji:'⚡', intro:'원리를 실험으로 확인해요', apps:[] },
-  { id:'g3', label:'3학년', emoji:'🧬', intro:'생명과 유전의 비밀을 풀어요', apps:[
-      { icon:'🌱',
-        name:'멘델 유전 실험실',
-        unit:'생식과 유전 · 멘델의 유전 원리',
-        desc:'완두를 직접 교배하며 우열의 원리, 분리의 법칙, 독립의 법칙을 발견해요.',
-        url:'https://soojin-t.github.io/mendel-lab/' }
-  ]}
+(function(){
+"use strict";
+
+/* ============ 형질 정의 ============
+   조건: 형질마다 서로 다른 기호 사용, 혈액형만 기존 ABO 유지 */
+var TRAITS = [
+  {id:'hair', label:'곱슬머리', sym:'R', dom:'곱슬머리', rec:'직모'},
+  {id:'lid',  label:'쌍꺼풀',   sym:'G', dom:'쌍꺼풀',    rec:'외꺼풀'},
+  {id:'dimp', label:'보조개',   sym:'D', dom:'있음',     rec:'없음'},
+  {id:'roll', label:'혀말기',   sym:'T', dom:'가능',     rec:'불가능'},
+  {id:'frec', label:'주근깨',   sym:'F', dom:'있음',     rec:'없음'},
+  {id:'thumb',label:'엄지 모양', sym:'H', dom:'곧은 엄지',  rec:'굽은 엄지'}
 ];
+var BLOOD = {id:'abo', label:'ABO 혈액형'};
+var BLOOD_PHENO = {'A형':['AA','AO'], 'B형':['BB','BO'], 'AB형':['AB'], 'O형':['OO']};
+var ALL_BLOOD_GT = ['AA','AO','BB','BO','AB','OO'];
 
-const isTeacher = new URLSearchParams(location.search).has('teacher');
-if (isTeacher) document.body.classList.add('teacher');
+function up(t){return t.sym;}
+function lo(t){return t.sym.toLowerCase();}
+function pheno(t, gt){ return gt.indexOf(t.sym) >= 0 ? t.dom : t.rec; }
+function bloodPheno(gt){
+  if(gt==='AB') return 'AB형';
+  if(gt==='OO') return 'O형';
+  return gt.charAt(0)==='A' ? 'A형' : 'B형';
+}
+function combine(a,b){
+  if(a===b) return a+a;
+  var ord = 'ABO';
+  if(ord.indexOf(a)>=0 && ord.indexOf(b)>=0 && a.toUpperCase()===a && b.toUpperCase()===b && (a==='O'||b==='O'||a==='A'||a==='B')){
+    // blood: order by A,B,O
+    return (ord.indexOf(a)<ord.indexOf(b)) ? a+b : b+a;
+  }
+  return (a===a.toUpperCase()) ? a+b : b+a;
+}
+function combineBlood(a,b){
+  if(a===b) return a+a;
+  var ord='ABO';
+  return ord.indexOf(a)<ord.indexOf(b) ? a+b : b+a;
+}
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const teacherUrl = u => u + (u.includes('?') ? '&' : '?') + 'teacher';
+/* ============ 상태 ============ */
+var SKINS = ['#F7D9BE','#EFC29B','#D9A273','#B87B4E','#8E5A34'];
+var HAIRS = ['#2B2118','#4A3323','#7B4A2A','#C08A3E','#B9BEC4'];
+var state = {
+  student:{no:'', name:''},
+  step:1,
+  me:{ look:{skin:1,hair:0,sex:'m'}, g:{}, ph:{} },
+  sp:{ look:{skin:2,hair:1,sex:'f'}, g:{}, ph:{} },
+  kids:[],
+  cur:0
+};
+// 형질은 학생이 직접 고르기 전까지 비어 있다
+function allChosen(key){
+  var g = state[key].g;
+  return TRAITS.every(function(t){ return !!g[t.id]; }) && !!g.abo;
+}
+var VAGUE = ['있음','없음','가능','불가능'];
+function phLabel(t, ph){ return (t && t.sym && VAGUE.indexOf(ph)>=0) ? (t.label+' '+ph) : ph; }
 
-/* 학년 카드 그리기 */
-document.getElementById('grades').innerHTML = GRADES.map((g,i) => `
-  <button class="grade ${g.id}" onclick="location.hash='${g.id}'" aria-label="${g.label} 실험 보기">
-    <span class="blob"></span>
-    <div class="num jua">${i+1}</div>
-    <h2 class="jua">${g.emoji} ${g.label}</h2>
-    <div class="meta">
-      <span class="pill">${g.apps.length ? '실험 ' + g.apps.length + '개' : '준비 중'}</span>
-      <span class="arrow">→</span>
-    </div>
-  </button>`).join('');
+function phenoOf(person){
+  var ph = person.ph || {};
+  var o = {};
+  TRAITS.forEach(function(t){
+    var g = person.g[t.id], sel = ph[t.id], v = null;
+    if(g) v = pheno(t, g);
+    else if(sel === 'dom') v = t.dom;
+    else if(sel === 'rec') v = t.rec;
+    o[t.id] = v || (t.id === 'thumb' ? null : t.rec);
+  });
+  o.abo = person.g.abo ? bloodPheno(person.g.abo) : (ph.abo || null);
+  return o;
+}
 
-/* 앱 카드 그리기 */
-function renderGrade(g){
-  document.getElementById('gv-title').textContent = `${g.emoji} ${g.label} 실험실`;
-  const box = document.getElementById('apps');
-  if (!g.apps.length){
-    box.innerHTML = `<div class="soon"><div class="big">🛠️</div><b>실험을 준비하고 있어요</b>조금만 기다려 주세요!</div>`;
+/* ============ 아바타 SVG ============ */
+function shade(hex, amt){
+  var n = parseInt(hex.slice(1),16), r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+  function f(v){ return Math.max(0, Math.min(255, Math.round(amt<0 ? v*(1+amt) : v+(255-v)*amt))); }
+  return '#' + ((1<<24) + (f(r)<<16) + (f(g)<<8) + f(b)).toString(16).slice(1);
+}
+
+/* 귀여운 카툰 스타일 표현형 캐릭터 — 굵은 외곽선 + 플랫 컬러
+   opts.child = true 이면 어린이 비율(작고 둥근 얼굴, 큰 눈, 작은 코·입)로 그린다 */
+function avatar(p, look, opts){
+  opts = opts || {};
+  var uid  = opts.uid || 'a';
+  var skin = SKINS[look.skin];
+  var hairC = HAIRS[look.hair];
+  var hairD = shade(hairC,-0.30);
+  var ink  = '#22303A';
+  var shirt = opts.shirt || '#2E6F7A';
+  var female = look.sex === 'f';
+  var kid = !!opts.child;
+
+  var curly  = (p.hair === '곱슬머리');
+  var dblLid = (p.lid  === '쌍꺼풀');
+  var dimple = (p.dimp === '있음');
+  var roll   = (p.roll === '가능');
+  var frec   = (p.frec === '있음');
+  var bentThumb = (p.thumb === '굽은 엄지');
+  var s = [];
+
+  var dy = kid ? -4 : 0;                // 어린이는 얼굴이 짧아 이목구비가 조금 위로
+  var ek = kid ? 1.18 : 1;              // 눈 크기 배율
+  var faceD = kid
+    ? 'M 88,152 C 88,110 112,86 150,86 C 188,86 212,110 212,152 C 212,194 190,228 150,228 C 110,228 88,194 88,152 Z'
+    : (female
+      ? 'M 88,152 C 88,100 112,66 150,66 C 188,66 212,100 212,152 C 212,196 190,242 150,242 C 110,242 88,196 88,152 Z'
+      : 'M 84,152 C 84,98 110,62 150,62 C 190,62 216,98 216,152 C 216,198 194,246 150,246 C 106,246 84,198 84,152 Z');
+
+  s.push('<svg viewBox="0 0 300 340" role="img" aria-label="표현형 캐릭터">');
+  s.push('<defs><radialGradient id="bl'+uid+'" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#F2748C" stop-opacity=".45"/>'
+    + '<stop offset="100%" stop-color="#F2748C" stop-opacity="0"/></radialGradient></defs>');
+
+  /* ---- 머리 덩어리 (얼굴 뒤, 구멍 없이 통으로 → 얼굴과 머리 사이 틈 없음) ---- */
+  var topOuter = curly
+    ? 'M 55,152 C 44,141 67,128 50,116 C 50,91 100,34 150,34 C 200,34 250,91 250,116 C 233,128 256,141 245,152'
+    : 'M 60,148 C 58,94 100,38 150,38 C 200,38 242,94 240,148';
+  var mass;
+  if(kid){
+    mass = female
+      ? (curly
+          ? 'M 150,48 C 104,48 68,92 72,150 C 58,166 80,178 66,194 C 86,208 118,205 150,205'
+            + ' C 182,205 214,208 234,194 C 220,178 242,166 228,150 C 232,92 196,48 150,48 Z'
+          : 'M 150,48 C 104,48 68,92 68,150 C 68,170 70,188 74,200'
+            + ' C 92,210 118,207 150,207 C 182,207 208,210 226,200'
+            + ' C 230,188 232,170 232,150 C 232,92 196,48 150,48 Z')
+      : (curly
+          ? 'M 150,50 C 106,50 72,92 77,143 C 62,156 84,166 70,176 C 90,184 118,181 150,181'
+            + ' C 182,181 210,184 230,176 C 216,166 238,156 223,143 C 228,92 194,50 150,50 Z'
+          : 'M 150,50 C 106,50 72,92 72,146 C 72,158 74,166 77,174'
+            + ' C 94,181 118,178 150,178 C 182,178 206,181 223,174'
+            + ' C 226,166 228,158 228,146 C 228,92 194,50 150,50 Z');
+  } else if(female){
+    mass = curly
+      ? 'M 150,32 C 94,32 56,90 60,156 C 44,176 66,192 48,211 C 68,233 46,246 64,263'
+        + ' C 70,274 104,270 150,270 C 196,270 230,274 236,263'
+        + ' C 254,246 232,233 252,211 C 234,192 256,176 240,156 C 244,90 206,32 150,32 Z'
+      : 'M 150,32 C 94,32 56,90 56,160 C 56,204 58,236 66,260'
+        + ' C 70,269 104,266 150,266 C 196,266 230,269 242,258'
+        + ' C 242,236 244,204 244,160 C 244,90 206,32 150,32 Z';
+  } else {
+    mass = topOuter
+      + (curly
+          ? ' C 248,163 228,182 212,190 C 210,175 208,161 206,150'
+            + ' L 94,150 C 92,161 90,175 88,190 C 72,182 52,163 55,152 Z'
+          : ' C 238,162 232,178 214,185 C 210,172 208,160 206,150'
+            + ' L 94,150 C 92,160 90,172 86,185 C 68,178 62,162 60,148 Z');
+  }
+  s.push('<path d="'+mass+'" fill="'+hairC+'" stroke="'+ink+'" stroke-width="3.2" stroke-linejoin="round"/>');
+
+  /* ---- 목 · 어깨 ---- */
+  if(kid){
+    s.push('<path d="M 136,206 L 136,240 Q 150,250 164,240 L 164,206 Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    s.push('<path d="M 60,340 C 60,280 102,246 150,246 C 198,246 240,280 240,340 Z" fill="'+shirt+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    s.push('<path d="M 134,248 Q 150,264 166,248" fill="none" stroke="'+ink+'" stroke-width="3" stroke-linecap="round"/>');
+  } else {
+    s.push('<path d="M 132,218 L 132,252 Q 150,264 168,252 L 168,218 Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    s.push('<path d="M 56,340 C 56,292 100,262 150,262 C 200,262 244,292 244,340 Z" fill="'+shirt+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    if(female){
+      s.push('<path d="M 130,264 Q 150,284 170,264" fill="none" stroke="'+ink+'" stroke-width="3" stroke-linecap="round"/>');
+    } else {
+      s.push('<path d="M 128,263 L 150,283 L 172,263" fill="none" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>');
+    }
+  }
+
+  /* ---- 얼굴 ---- */
+  s.push('<path d="'+faceD+'" fill="'+skin+'" stroke="'+ink+'" stroke-width="3.2"/>');
+
+  /* ---- 기본 귀 ---- */
+  var ey = kid ? 144 : 150;
+  [[kid?90:(female?89:86),1],[kid?210:(female?211:214),-1]].forEach(function(e){
+    var ex=e[0], dir=e[1];
+    s.push('<path d="M '+ex+','+ey+' C '+(ex-dir*12)+','+ey+' '+(ex-dir*15)+','+(ey+14)+' '+(ex-dir*11)+','+(ey+29)
+      + ' C '+(ex-dir*7)+','+(ey+38)+' '+(ex+dir*3)+','+(ey+38)+' '+(ex+dir*5)+','+(ey+29)+' Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    s.push('<path d="M '+(ex-dir*3)+','+(ey+9)+' C '+(ex-dir*8)+','+(ey+13)+' '+(ex-dir*8)+','+(ey+22)+' '+(ex-dir*4)+','+(ey+25)+'" fill="none" stroke="'+ink+'" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>');
+  });
+
+  /* ---- 볼터치 ---- */
+  s.push('<ellipse cx="112" cy="'+(186+dy)+'" rx="'+(kid?21:19)+'" ry="'+(kid?12:11)+'" fill="url(#bl'+uid+')"/>');
+  s.push('<ellipse cx="188" cy="'+(186+dy)+'" rx="'+(kid?21:19)+'" ry="'+(kid?12:11)+'" fill="url(#bl'+uid+')"/>');
+
+  /* ---- 주근깨 (볼에만, 연하게) ---- */
+  if(frec){
+    [[112,180],[120,186],[106,189],[117,194],[127,179],
+     [188,180],[180,186],[194,189],[183,194],[173,179]].forEach(function(c){
+      s.push('<circle cx="'+c[0]+'" cy="'+(c[1]+dy)+'" r="1.0" fill="#A2603A" opacity=".55"/>');
+    });
+  }
+
+  /* ---- 눈 (쌍꺼풀 / 외꺼풀) ---- */
+  var erx = (dblLid ? 15 : 14) * ek, ery = (dblLid ? 16.5 : 12.5) * ek;
+  var pr  = (dblLid ? 8.6 : 7.2) * ek;
+  var eyeY = 158 + dy;
+  [[124,1],[176,-1]].forEach(function(e){
+    var cx=e[0], d=e[1];
+    s.push('<ellipse cx="'+cx+'" cy="'+eyeY+'" rx="'+erx.toFixed(1)+'" ry="'+ery.toFixed(1)+'" fill="#FFFFFF" stroke="'+ink+'" stroke-width="3"/>');
+    s.push('<circle cx="'+cx+'" cy="'+(eyeY+1.5)+'" r="'+pr.toFixed(1)+'" fill="#22303A"/>');
+    s.push('<circle cx="'+(cx+3.4)+'" cy="'+(eyeY-2.6)+'" r="'+(3.1*ek).toFixed(1)+'" fill="#FFFFFF"/>');
+    s.push('<circle cx="'+(cx-3.6)+'" cy="'+(eyeY+4.4)+'" r="'+(1.6*ek).toFixed(1)+'" fill="#FFFFFF" opacity=".85"/>');
+    if(dblLid){
+      s.push('<path d="M '+(cx-13)+','+(eyeY-ery-1).toFixed(1)+' Q '+cx+','+(eyeY-ery-9).toFixed(1)+' '+(cx+13)+','+(eyeY-ery-1).toFixed(1)+'" fill="none" stroke="'+ink+'" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>');
+    }
+    if(female && !kid){
+      s.push('<path d="M '+(cx-d*14)+','+(eyeY-6)+' L '+(cx-d*22)+','+(eyeY-12)+'" stroke="'+ink+'" stroke-width="2.6" stroke-linecap="round"/>');
+    }
+  });
+
+  /* ---- 눈썹 ---- */
+  var bw = (female ? 4.6 : 5.8) * (kid ? 0.8 : 1);
+  s.push('<path d="M 108,'+(130+dy)+' q 16,-10 32,-2" fill="none" stroke="'+hairD+'" stroke-width="'+bw.toFixed(1)+'" stroke-linecap="round"/>');
+  s.push('<path d="M 160,'+(128+dy)+' q 16,-8 32,2" fill="none" stroke="'+hairD+'" stroke-width="'+bw.toFixed(1)+'" stroke-linecap="round"/>');
+
+  /* ---- 코 ---- */
+  if(kid){
+    s.push('<path d="M 150,169 q -5,8 3,9" fill="none" stroke="'+ink+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>');
+  } else {
+    s.push('<path d="M 150,172 q -7,12 3,14" fill="none" stroke="'+ink+'" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>');
+  }
+
+  /* ---- 입 · 혀말기 ---- */
+  var my = 199 + dy, k = kid ? 0.88 : 1;
+  function mx(x){ return (150 + (x-150)*k).toFixed(1); }
+  s.push('<path d="M '+mx(128)+','+my+' Q 150,'+(my-6)+' '+mx(172)+','+my+' Q '+mx(168)+','+(my+24)+' 150,'+(my+24)+' Q '+mx(132)+','+(my+24)+' '+mx(128)+','+my+' Z" fill="#7B2438" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+  s.push('<path d="M '+mx(133)+','+(my+1)+' Q 150,'+(my-3)+' '+mx(167)+','+(my+1)+' Q '+mx(164)+','+(my+7)+' 150,'+(my+7)+' Q '+mx(136)+','+(my+7)+' '+mx(133)+','+(my+1)+' Z" fill="#FFFFFF"/>');
+  if(roll){
+    s.push('<path d="M '+mx(137)+','+(my+20)+' q 2,-14 7,-3 q 6,-13 11,1 q 5,-12 8,2 q -6,7 -13,7 q -8,0 -13,-7 Z" fill="#F0899F" stroke="#C24C68" stroke-width="2.2" stroke-linejoin="round"/>');
+    s.push('<path d="M '+mx(144)+','+(my+17)+' q 6,-8 11,1" fill="none" stroke="#C24C68" stroke-width="1.8" stroke-linecap="round"/>');
+  } else {
+    s.push('<ellipse cx="150" cy="'+(my+16)+'" rx="'+(15*k).toFixed(1)+'" ry="6.5" fill="#F0899F" stroke="#C24C68" stroke-width="2.2"/>');
+  }
+
+  /* ---- 보조개 (볼 쪽에 작게) ---- */
+  if(dimple){
+    s.push('<path d="M 115,'+(199+dy)+' q 3,5 1,9" fill="none" stroke="'+ink+'" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>');
+    s.push('<path d="M 185,'+(199+dy)+' q -3,5 -1,9" fill="none" stroke="'+ink+'" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>');
+  }
+
+  /* ---- 앞머리 ---- */
+  var front;
+  if(kid){
+    var kTop = female
+      ? (curly ? 'M 72,151 C 59,140 81,128 68,118 C 67,87 104,46 150,46 C 196,46 233,87 232,118 C 219,128 241,140 228,151'
+               : 'M 68,150 C 66,92 104,46 150,46 C 196,46 234,92 232,150')
+      : (curly ? 'M 77,147 C 64,137 86,126 72,117 C 71,87 106,48 150,48 C 194,48 229,87 228,117 C 214,126 236,137 223,147'
+               : 'M 72,146 C 70,90 106,48 150,48 C 194,48 228,90 228,146');
+    front = kTop + (curly
+      ? ' C 226,124 210,113 194,102 C 178,100 166,110 150,112 C 134,110 122,100 106,102 C 90,113 74,124 70,151 Z'
+      : ' C 226,128 214,112 196,106 C 180,100 165,103 150,109 C 135,103 120,100 104,106 C 86,112 74,128 70,150 Z');
+  } else if(female){
+    front = 'M 56,150 C 56,86 94,32 150,32 C 206,32 244,86 244,150'
+      + (curly
+          ? ' C 243,123 238,113 232,104 C 220,120 212,99 201,111'
+            + ' C 191,123 183,100 173,112 C 163,124 155,100 145,112'
+            + ' C 135,124 127,100 117,112 C 107,124 99,100 89,111'
+            + ' C 79,122 67,112 59,123 C 56,130 56,139 56,150 Z'
+          : ' C 242,126 238,118 232,112 C 222,118 214,108 204,114'
+            + ' C 194,120 186,109 176,115 C 166,121 158,109 148,115'
+            + ' C 138,121 130,109 120,115 C 110,121 102,109 92,114'
+            + ' C 82,119 70,118 62,124 C 58,128 56,138 56,150 Z');
+  } else {
+    front = topOuter
+      + (curly
+          ? ' C 240,128 228,100 208,97 C 189,94 176,107 156,109'
+            + ' C 136,111 119,124 100,113 C 80,102 64,130 55,152 Z'
+          : ' C 234,126 224,108 208,100 C 192,93 174,96 158,104'
+            + ' C 142,112 122,114 104,113 C 84,112 70,124 60,148 Z');
+  }
+  s.push('<path d="'+front+'" fill="'+hairC+'" stroke="'+ink+'" stroke-width="3.2" stroke-linejoin="round"/>');
+
+  /* 머릿결 — 곱슬은 물결선, 직모는 매끈한 광택선 */
+  if(kid){
+    if(curly){
+      s.push('<path d="M 100,120 C 112,102 130,88 152,82 M 200,120 C 190,102 174,90 156,84" fill="none" stroke="'+hairD+'" stroke-width="2.8" stroke-linecap="round" opacity=".55"/>');
+    } else {
+      s.push('<path d="M 104,112 C 116,88 138,72 162,66" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity=".18"/>');
+    }
+  } else if(curly){
+    if(female){
+      s.push('<path d="M 122,64 C 112,84 120,98 108,118 M 178,64 C 188,84 180,98 192,118" fill="none" stroke="'+hairD+'" stroke-width="3" stroke-linecap="round" opacity=".6"/>');
+      s.push('<path d="M 72,170 C 82,188 70,204 82,222 C 92,238 78,250 86,262 M 228,170 C 218,188 230,204 218,222 C 208,238 222,250 214,262" fill="none" stroke="'+hairD+'" stroke-width="3" stroke-linecap="round" opacity=".5"/>');
+    } else {
+      s.push('<path d="M 88,120 C 104,100 122,84 148,70 C 168,60 190,56 208,60" fill="none" stroke="'+hairD+'" stroke-width="3" stroke-linecap="round" opacity=".55"/>');
+      s.push('<path d="M 76,134 C 92,112 112,94 138,80" fill="none" stroke="'+hairD+'" stroke-width="2.8" stroke-linecap="round" opacity=".45"/>');
+    }
+  } else {
+    if(female){
+      s.push('<path d="M 100,96 C 116,74 140,62 164,58" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" opacity=".18"/>');
+    } else {
+      s.push('<path d="M 96,112 C 114,86 144,64 178,54" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" opacity=".16"/>');
+    }
+  }
+
+  /* ---- 엄지 모양 (굽은 / 곧은) ---- */
+  if(p.thumb){
+  s.push('<g transform="translate(54,268)">');
+  s.push('<path d="M -17,-4 C -17,-12 -9,-16 0,-16 C 9,-16 17,-12 17,-4 L 17,12 C 17,20 9,24 0,24 C -9,24 -17,20 -17,12 Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+  s.push('<path d="M -8,-2 L 12,-2 M -8,7 L 12,7" stroke="'+ink+'" stroke-width="2" stroke-linecap="round" opacity=".45"/>');
+  if(bentThumb){
+    s.push('<path d="M -15,-6 C -24,-14 -30,-26 -22,-32 C -14,-38 -6,-28 -2,-12 Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+  } else {
+    s.push('<path d="M -15,-6 C -18,-20 -14,-32 -7,-32 C 0,-32 3,-22 1,-8 Z" fill="'+skin+'" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+  }
+  s.push('</g>');
+  }
+
+  /* ---- 혈액형 배지 ---- */
+  if(p.abo){
+    s.push('<g transform="translate(246,254)">');
+    s.push('<path d="M 0,-22 C 11,-8 19,-1 19,8 A 19,19 0 0 1 -19,8 C -19,-1 -11,-8 0,-22 Z" fill="#E0425C" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>');
+    s.push('<text x="0" y="12" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="'+(p.abo.length>2?14:17)+'" fill="#FFFFFF">'+p.abo.replace('형','')+'</text>');
+    s.push('</g>');
+  }
+
+  s.push('</svg>');
+  return s.join('');
+}
+
+/* ============ 가계도 ============ */
+function pedigreeSVG(){
+  var dom='#0E7C86', ink='#16222B';
+  var s=['<svg viewBox="0 0 340 190" role="img" aria-label="보조개 가계도">'];
+  function sq(x,y,f){ return '<rect x="'+(x-13)+'" y="'+(y-13)+'" width="26" height="26" rx="3" fill="'+(f?dom:'#FFFFFF')+'" stroke="'+ink+'" stroke-width="2.4"/>'; }
+  function ci(x,y,f){ return '<circle cx="'+x+'" cy="'+y+'" r="14" fill="'+(f?dom:'#FFFFFF')+'" stroke="'+ink+'" stroke-width="2.4"/>'; }
+  s.push('<line x1="113" y1="40" x2="187" y2="40" stroke="'+ink+'" stroke-width="2.4"/>');
+  s.push('<line x1="150" y1="40" x2="150" y2="78" stroke="'+ink+'" stroke-width="2.4"/>');
+  s.push('<line x1="70" y1="78" x2="230" y2="78" stroke="'+ink+'" stroke-width="2.4"/>');
+  [70,150,230].forEach(function(x){ s.push('<line x1="'+x+'" y1="78" x2="'+x+'" y2="106" stroke="'+ink+'" stroke-width="2.4"/>'); });
+  s.push(sq(100,40,true)); s.push(ci(200,40,true));
+  s.push(ci(70,120,true)); s.push(sq(150,120,false)); s.push(ci(230,120,true));
+  s.push('<text x="100" y="20" text-anchor="middle" font-size="11" font-family="Noto Sans KR" fill="'+ink+'">아버지</text>');
+  s.push('<text x="200" y="20" text-anchor="middle" font-size="11" font-family="Noto Sans KR" fill="'+ink+'">어머니</text>');
+  s.push('<rect x="8" y="150" width="324" height="32" rx="8" fill="#FFFFFF" stroke="#D2DEDB"/>');
+  s.push('<rect x="20" y="159" width="15" height="15" rx="3" fill="'+dom+'" stroke="'+ink+'" stroke-width="2"/><text x="42" y="171" font-size="11" font-family="Noto Sans KR" fill="'+ink+'">보조개 있음(남)</text>');
+  s.push('<circle cx="152" cy="166" r="8" fill="'+dom+'" stroke="'+ink+'" stroke-width="2"/><text x="164" y="171" font-size="11" font-family="Noto Sans KR" fill="'+ink+'">있음(여)</text>');
+  s.push('<rect x="228" y="159" width="15" height="15" rx="3" fill="#FFFFFF" stroke="'+ink+'" stroke-width="2"/><text x="250" y="171" font-size="11" font-family="Noto Sans KR" fill="'+ink+'">없음</text>');
+  s.push('</svg>');
+  return s.join('');
+}
+
+/* ============ 탐구 질문 ============ */
+function inquiry(host, cfg){
+  var el = document.getElementById(host);
+  if(!el) return;
+  var h = '<div class="q"><span class="ic">?</span><span>'+cfg.q+'</span></div>';
+  if(cfg.src) h += '<div class="src">'+cfg.src+'</div>';
+  if(cfg.choices){
+    h += '<div class="choices">';
+    cfg.choices.forEach(function(c,i){ h += '<button type="button" data-i="'+i+'">'+c.t+'</button>'; });
+    h += '</div><div class="explain" hidden></div>';
+  }
+  if(cfg.open){
+    h += '<div class="openq"><label class="sr" for="'+host+'-ta">서술형 답안</label>'
+       + '<textarea id="'+host+'-ta" placeholder="'+cfg.open.ph+'"></textarea>'
+       + '<details class="model"><summary>모범 답안 확인하기</summary><div class="body">'+cfg.open.model+'</div></details></div>';
+  }
+  el.innerHTML = h;
+  if(cfg.choices){
+    var exp = el.querySelector('.explain');
+    el.querySelectorAll('.choices button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var i = +b.dataset.i, c = cfg.choices[i];
+        b.dataset.res = c.ok ? 'ok' : 'no';
+        exp.hidden = false;
+        exp.innerHTML = (c.ok ? '⭕ ' : '❌ ') + c.why;
+        if(c.ok && !solved[host]){ solved[host] = true; renderRail(); toast('정답! 다음 단계로 넘어갈 수 있어요.'); }
+      });
+    });
+  }
+}
+
+/* ============ 단계 잠금 ============ */
+var solved = {};
+var GATE = {
+  2:{need:['warmQ','note1'], msg:'STEP 1의 가계도 문제와 탐구 질문을 먼저 맞혀 주세요.'},
+  3:{need:['note2'], msg:'STEP 2의 탐구 질문을 먼저 맞혀 주세요.'},
+  4:{need:['note3'], msg:'STEP 3의 탐구 질문을 먼저 맞혀 주세요.'},
+  5:{need:['note4'], msg:'STEP 4의 탐구 질문을 먼저 맞혀 주세요.'},
+  6:{need:['note5'], msg:'STEP 5의 탐구 질문을 먼저 맞혀 주세요.'}
+};
+function gateOk(n){
+  var g = GATE[n];
+  if(!g) return true;
+  return g.need.every(function(k){ return solved[k]; });
+}
+function reachable(n){
+  if(n>=2 && !(state.student.no && state.student.name)) return false;
+  if(n>=2 && !allChosen('me')) return false;
+  if(n>=3 && !allChosen('sp')) return false;
+  if(!gateOk(n)) return false;
+  if(n===4 && (!state.kids[state.cur] || !state.kids[state.cur].gm)) return false;
+  if(n>=5 && state.kids.length<2) return false;
+  return true;
+}
+var toastTimer = null;
+function toast(msg){
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.hidden = true; }, 2600);
+}
+
+/* ============ 렌더링 ============ */
+var STEPS = ['나의 형질','배우자 형질','생식세포','자녀 예상','가족 비교','확률 정리'];
+
+function renderRail(){
+  var ol = document.getElementById('rail');
+  ol.innerHTML = STEPS.map(function(s,i){
+    var n = i+1;
+    var st = n===state.step ? 'on' : (n<state.step ? 'done' : 'off');
+    var lock = (n!==state.step && !reachable(n)) ? ' disabled' : '';
+    return '<li><button type="button" data-step="'+n+'" data-state="'+st+'"'+lock+'><span class="n">'+n+'</span>'+s+'</button></li>';
+  }).join('');
+  ol.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){ go(+b.dataset.step); });
+  });
+}
+
+function go(n){
+  if(n>=2 && !(state.student.no && state.student.name)){
+    toast('학번과 이름을 먼저 입력해 주세요.');
+    var f = document.getElementById(state.student.no ? 'stuName' : 'stuNo');
+    if(f) f.focus();
     return;
   }
-  box.innerHTML = g.apps.map(a => `
-    <article class="app">
-      <div class="head">
-        <div class="icon">${a.icon}</div>
-        <div><span class="unit">${esc(a.unit)}</span><h3 class="jua">${esc(a.name)}</h3></div>
-      </div>
-      <p class="desc">${esc(a.desc)}</p>
-      <a class="start" href="${esc(a.url)}">시작 ▶</a>
-      <div class="t-tools">
-        <a class="t-btn" href="${esc(teacherUrl(a.url))}">👩‍🏫 교사용 열기</a>
-        <button class="t-btn" onclick="copyLink('${esc(a.url)}')">🔗 학생 링크 복사</button>
-      </div>
-    </article>`).join('');
+  if(n>=2 && !allChosen('me')){ toast('나의 7가지 형질을 모두 골라 주세요.'); return; }
+  if(n>=3 && !allChosen('sp')){ toast('배우자의 7가지 형질을 모두 골라 주세요.'); return; }
+  if(n!==state.step && !gateOk(n)){ toast(GATE[n].msg); return; }
+  if(n>=5 && state.kids.length<2) return;
+  if(n===4 && (!state.kids[state.cur] || !state.kids[state.cur].gm)) return;
+  state.step = n;
+  for(var i=1;i<=6;i++){
+    document.getElementById('panel'+i).hidden = (i!==n);
+  }
+  renderRail();
+  if(n===5) renderFamily();
+  if(n===6) renderPunnett();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-/* 주소(#g1 등)에 따라 화면 전환 — 브라우저 뒤로가기도 동작 */
-function route(){
-  const g = GRADES.find(x => x.id === location.hash.slice(1));
-  document.getElementById('home').classList.toggle('on', !g);
-  document.getElementById('grade-view').classList.toggle('on', !!g);
-  const gv=document.getElementById('grade-view').style;
-  if (g){ ['','-dark','-light'].forEach((k,i)=>gv.setProperty(['--gc','--gcd','--gcl'][i],`var(--${g.id}${k})`)); renderGrade(g); }
-  window.scrollTo(0,0);
+function renderLooks(hostId, key){
+  var host = document.getElementById(hostId), p = state[key];
+  var h = '';
+  h += '<div class="lkgrp"><span class="lklabel">피부색</span><div class="lkrow">';
+  SKINS.forEach(function(c,i){ h += '<button type="button" title="피부색" data-k="skin" data-v="'+i+'" style="background:'+c+'" aria-pressed="'+(p.look.skin===i)+'"><span class="sr">피부색 '+(i+1)+'</span></button>'; });
+  h += '</div></div>';
+  h += '<div class="lkgrp"><span class="lklabel">머리 색</span><div class="lkrow">';
+  HAIRS.forEach(function(c,i){ h += '<button type="button" title="머리 색" data-k="hair" data-v="'+i+'" style="background:'+c+'" aria-pressed="'+(p.look.hair===i)+'"><span class="sr">머리 색 '+(i+1)+'</span></button>'; });
+  h += '</div></div>';
+  var lock = (key === 'sp') ? ' disabled' : '';
+  h += '<div class="lkgrp"><span class="lklabel">성별</span><div class="lkrow">';
+  h += '<button type="button" class="pill" data-k="sex" data-v="m" aria-pressed="'+(p.look.sex==='m')+'"'+lock+'>남자</button>';
+  h += '<button type="button" class="pill" data-k="sex" data-v="f" aria-pressed="'+(p.look.sex==='f')+'"'+lock+'>여자</button>';
+  h += '</div></div>';
+  host.innerHTML = h;
+  host.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.dataset.k, v = b.dataset.v;
+      if(k === 'sex'){
+        if(key !== 'me') return;
+        state.me.look.sex = v;
+        state.sp.look.sex = (v === 'm') ? 'f' : 'm';
+        renderLooks('spLooks','sp'); drawAvatar('sp');
+      } else {
+        p.look[k] = +v;
+      }
+      renderLooks(hostId, key); drawAvatar(key);
+    });
+  });
 }
-window.addEventListener('hashchange', route);
-route();
 
-function copyLink(u){
-  const done = () => toast('학생용 링크를 복사했어요');
-  if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, () => prompt('복사하세요', u));
-  else prompt('복사하세요', u);
+function placeholderAvatar(){
+  var c = '#9AAFB6';
+  return '<svg viewBox="0 0 300 340" role="img" aria-label="형질을 고르면 얼굴이 나타납니다">'
+    + '<path d="M 132,218 L 132,252 Q 150,264 168,252 L 168,218" fill="none" stroke="'+c+'" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>'
+    + '<path d="M 56,340 C 56,292 100,262 150,262 C 200,262 244,292 244,340" fill="none" stroke="'+c+'" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>'
+    + '<path d="M 88,152 C 88,100 112,66 150,66 C 188,66 212,100 212,152 C 212,196 190,242 150,242 C 110,242 88,196 88,152 Z" fill="#FFFFFF" fill-opacity=".55" stroke="'+c+'" stroke-width="3" stroke-dasharray="9 8"/>'
+    + '<text x="150" y="178" text-anchor="middle" font-family="Jua, sans-serif" font-size="66" fill="'+c+'">?</text>'
+    + '</svg>';
 }
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('on');
-  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800);
+function chosenCount(key){
+  var g = state[key].g, n = 0;
+  TRAITS.forEach(function(t){ if(g[t.id]) n++; });
+  if(g.abo) n++;
+  return n;
 }
+function touchedCount(key){
+  var ph = state[key].ph, n = 0;
+  TRAITS.forEach(function(t){ if(ph[t.id]) n++; });
+  if(ph.abo) n++;
+  return n;
+}
+function drawAvatar(key){
+  var p = state[key];
+  var host = document.getElementById(key==='me' ? 'meAvatar' : 'spAvatar');
+  var n = chosenCount(key), total = TRAITS.length + 1;
+  host.innerHTML = touchedCount(key) > 0
+    ? avatar(phenoOf(p), p.look, {uid:key, shirt: p.look.sex==='m' ? '#2E6F7A' : '#B4566E'})
+    : placeholderAvatar();
+  var cnt = document.getElementById(key==='me' ? 'mePicked' : 'spPicked');
+  if(cnt){
+    cnt.textContent = n === total ? '유전자형 ' + total + '가지 모두 확정!' : '유전자형 ' + n + ' / ' + total + ' 확정';
+    cnt.dataset.done = (n === total) ? '1' : '0';
+  }
+}
+
+function renderTraits(hostId, key){
+  var host = document.getElementById(hostId), p = state[key];
+  var h = '';
+  TRAITS.forEach(function(t){
+    var gt = p.g[t.id], sel = p.ph[t.id];
+    var isDom = sel === 'dom', isRec = sel === 'rec';
+    h += '<div class="trow">';
+    h += '<div class="tname">'+t.label+' <span class="sym">'+t.sym+'/'+t.sym.toLowerCase()+'</span></div>';
+    h += '<div class="seg" data-t="'+t.id+'">'
+       +   '<button type="button" data-ph="dom" aria-pressed="'+isDom+'">'+t.dom+'</button>'
+       +   '<button type="button" data-ph="rec" aria-pressed="'+isRec+'">'+t.rec+'</button>'
+       + '</div>';
+    h += '<div class="gt" data-t="'+t.id+'">';
+    if(!sel){
+      h += '<span class="hint">표현형을 먼저 고르세요</span>';
+    } else if(isDom){
+      h += '<button type="button" data-gt="'+t.sym+t.sym+'" aria-pressed="'+(gt===t.sym+t.sym)+'">'+t.sym+t.sym+'</button>'
+        +  '<button type="button" data-gt="'+t.sym+t.sym.toLowerCase()+'" aria-pressed="'+(gt===t.sym+t.sym.toLowerCase())+'">'+t.sym+t.sym.toLowerCase()+'</button>'
+        +  '<span class="hint">'+(gt ? '순종 / 잡종' : '순종·잡종 중 하나를 고르세요')+'</span>';
+    } else {
+      h += '<span class="fixed">'+t.sym.toLowerCase()+t.sym.toLowerCase()+'</span><span class="hint">열성 → 순종 확정</span>';
+    }
+    h += '</div></div>';
+  });
+  // 혈액형
+  var bg = p.g.abo, bph = p.ph.abo || null;
+  h += '<div class="trow">';
+  h += '<div class="tname">ABO 혈액형 <span class="sym">A/B/O</span></div>';
+  h += '<div class="seg" data-t="abo">' + ['A형','B형','AB형','O형'].map(function(x){
+        return '<button type="button" data-ph="'+x+'" aria-pressed="'+(bph===x)+'">'+x+'</button>'; }).join('') + '</div>';
+  h += '<div class="gt" data-t="abo">';
+  var opts = bph ? BLOOD_PHENO[bph] : null;
+  if(!opts){
+    h += '<span class="hint">혈액형을 먼저 고르세요</span>';
+  } else if(opts.length>1){
+    h += opts.map(function(o){ return '<button type="button" data-gt="'+o+'" aria-pressed="'+(bg===o)+'">'+o+'</button>'; }).join('')
+      + '<span class="hint">'+(bg ? '순종 / 잡종' : '순종·잡종 중 하나를 고르세요')+'</span>';
+  } else {
+    h += '<span class="fixed">'+opts[0]+'</span><span class="hint">유전자형 확정</span>';
+  }
+  h += '</div></div>';
+  host.innerHTML = h;
+
+  host.querySelectorAll('.seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var tid = b.parentNode.dataset.t;
+      if(tid==='abo'){
+        p.ph.abo = b.dataset.ph;
+        var bo = BLOOD_PHENO[b.dataset.ph];
+        if(bo.length === 1) p.g.abo = bo[0]; else delete p.g.abo;   // 순종·잡종은 직접 고르게
+      } else {
+        var t = TRAITS.filter(function(x){return x.id===tid;})[0];
+        p.ph[tid] = b.dataset.ph;
+        if(b.dataset.ph === 'rec') p.g[tid] = t.sym.toLowerCase()+t.sym.toLowerCase();
+        else delete p.g[tid];                                        // 우성은 순종·잡종을 직접 고르게
+      }
+      resetKids(); renderTraits(hostId,key); drawAvatar(key); renderRail();
+    });
+  });
+  host.querySelectorAll('.gt button').forEach(function(b){
+    b.addEventListener('click', function(){
+      p.g[b.parentNode.dataset.t] = b.dataset.gt;
+      resetKids(); renderTraits(hostId,key); drawAvatar(key); renderRail();
+    });
+  });
+}
+
+function resetKids(){
+  state.kids = []; state.cur = 0;
+  document.getElementById('toPredict').disabled = true;
+  document.getElementById('babyBox').hidden = true;
+  document.getElementById('afterBaby').hidden = true;
+  document.getElementById('note4').hidden = true;
+  updateTitles();
+  renderRail();
+}
+
+/* ============ STEP 3 생식세포 ============ */
+function renderMeiosis(){
+  var host = document.getElementById('meio');
+  var rows = TRAITS.map(function(t){ return {id:t.id, label:t.label, t:t}; });
+  rows.push({id:'abo', label:'ABO 혈액형', t:null});
+  host.innerHTML = rows.map(function(r){
+    return '<div class="mrow" data-t="'+r.id+'">'
+      + '<div style="font-weight:700;font-size:13.5px">'+r.label+'</div>'
+      + '<div class="mside"><span class="lbl">나</span>'+alleleBoxes('me', r)+'</div>'
+      + '<div class="mside"><span class="lbl">배우자</span>'+alleleBoxes('sp', r)+'</div>'
+      + '</div>';
+  }).join('');
+}
+function alleleBoxes(key, r){
+  var gt = state[key].g[r.id];
+  var a = gt.charAt(0), b = gt.charAt(1);
+  function cls(x){ return r.t ? (x===r.t.sym ? 'd':'r') : (x==='O' ? 'r':'d'); }
+  return '<span class="allele '+cls(a)+'">'+a+'</span><span class="allele '+cls(b)+'">'+b+'</span>'
+    + '<span class="arrow">→</span>'
+    + '<span class="coin" data-key="'+key+'" data-t="'+r.id+'">?</span>';
+}
+
+function rollGametes(){
+  var kid = { gm:{me:{}, sp:{}}, ans:{}, checked:false };
+  var coins = document.querySelectorAll('.coin');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  coins.forEach(function(c){ c.classList.add('spin'); c.textContent='?'; });
+  var ids = TRAITS.map(function(t){return t.id;}).concat(['abo']);
+  ids.forEach(function(id){
+    ['me','sp'].forEach(function(k){
+      var gt = state[k].g[id];
+      kid.gm[k][id] = pick([gt.charAt(0), gt.charAt(1)]);
+    });
+  });
+  var delay = reduce ? 0 : 900;
+  setTimeout(function(){
+    coins.forEach(function(c){
+      c.classList.remove('spin');
+      c.textContent = kid.gm[c.dataset.key][c.dataset.t];
+    });
+    state.kids[state.cur] = kid;
+    document.getElementById('toPredict').disabled = false;
+    renderPredict();
+  }, delay);
+}
+
+/* ============ STEP 4 예상 ============ */
+function updateTitles(){
+  var ord = state.cur===0 ? '첫째' : '둘째';
+  document.getElementById('s3title').textContent = ord + ' 자녀를 위한 생식세포 만들기';
+  document.getElementById('s4title').textContent = ord + ' 자녀의 유전자형 예상하기';
+}
+function renderPredict(){
+  var kid = state.kids[state.cur];
+  if(!kid) return;
+  updateTitles();
+  var host = document.getElementById('predict');
+  var rows = TRAITS.concat([{id:'abo', label:'ABO 혈액형', sym:null}]);
+  host.innerHTML = rows.map(function(t){
+    var a = kid.gm.me[t.id], b = kid.gm.sp[t.id];
+    var opts = t.sym ? [t.sym+t.sym, t.sym+t.sym.toLowerCase(), t.sym.toLowerCase()+t.sym.toLowerCase()] : ALL_BLOOD_GT;
+    return '<div class="prow" data-t="'+t.id+'">'
+      + '<div class="tname">'+t.label+'</div>'
+      + '<div class="gametes">나 <span class="allele '+ac(t,a)+'">'+a+'</span> + 배우자 <span class="allele '+ac(t,b)+'">'+b+'</span></div>'
+      + '<div class="opts">'+opts.map(function(o){
+          return '<button type="button" data-gt="'+o+'" aria-pressed="'+(kid.ans[t.id]===o)+'"'
+            + ((kid.lock && kid.lock[t.id]) ? ' disabled' : '') + '>'+o+'</button>';
+        }).join('')+'</div>'
+      + '</div>';
+  }).join('');
+  host.querySelectorAll('.opts button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var k2 = state.kids[state.cur];
+      if(k2.checked) return;
+      var row = b.closest('.prow'), tid = row.dataset.t;
+      if(k2.lock && k2.lock[tid]) return;
+      state.kids[state.cur].ans[tid] = b.dataset.gt;
+      // 이 줄만 갱신 — 다른 줄의 채점 표시는 그대로 두어 이어서 고칠 수 있게 한다
+      row.querySelectorAll('.opts button').forEach(function(x){
+        x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+      });
+      delete row.dataset.mark;
+      var mk = row.querySelector('.mark'); if(mk) mk.remove();
+    });
+  });
+  document.getElementById('score').textContent = '';
+  document.getElementById('revealBtn').disabled = !kid.checked;
+}
+function ac(t, x){ return t.sym ? (x===t.sym?'d':'r') : (x==='O'?'r':'d'); }
+
+function answerFor(kid, t){
+  var a = kid.gm.me[t.id], b = kid.gm.sp[t.id];
+  return t.sym ? combine(a,b) : combineBlood(a,b);
+}
+
+function checkPredict(){
+  var kid = state.kids[state.cur];
+  if(!kid) return;
+  var rows = TRAITS.concat([{id:'abo', label:'ABO 혈액형', sym:null}]);
+  var missing = rows.filter(function(t){ return !kid.ans[t.id]; });
+  if(missing.length){
+    document.getElementById('score').textContent = '아직 고르지 않은 형질이 ' + missing.length + '개 있어요.';
+    return;
+  }
+  var right = 0;
+  kid.lock = kid.lock || {};
+  rows.forEach(function(t){
+    var correct = answerFor(kid, t);
+    var el = document.querySelector('.prow[data-t="'+t.id+'"]');
+    var ok = kid.ans[t.id] === correct;
+    if(ok) right++;
+    el.dataset.mark = ok ? 'ok' : 'no';
+    var old = el.querySelector('.mark'); if(old) old.remove();
+    var m = document.createElement('div');
+    m.className = 'mark ' + (ok?'ok':'no');
+    m.textContent = ok
+      ? '정답! ' + kid.gm.me[t.id] + ' + ' + kid.gm.sp[t.id] + ' → ' + correct
+      : '다시 생각해 볼까요? 두 생식세포 ' + kid.gm.me[t.id] + ' 와 ' + kid.gm.sp[t.id] + ' 를 짝지으면 어떤 유전자형이 될까요?';
+    el.appendChild(m);
+    if(ok){
+      kid.lock[t.id] = true;
+      el.querySelectorAll('.opts button').forEach(function(x){ x.disabled = true; });
+    }
+  });
+  kid.checked = (right === rows.length);
+  kid.g = {};
+  rows.forEach(function(t){ kid.g[t.id] = answerFor(kid, t); });
+  document.getElementById('score').textContent = kid.checked
+    ? ''
+    : rows.length + '문제 중 ' + right + '개 정답 — 틀린 형질을 다시 골라 [정답 확인]을 눌러 보세요.';
+  document.getElementById('revealBtn').disabled = !kid.checked;
+}
+
+function revealBaby(){
+  var kid = state.kids[state.cur];
+  if(!kid || !kid.g) return;
+  var p = {};
+  TRAITS.forEach(function(t){ p[t.id] = pheno(t, kid.g[t.id]); });
+  p.abo = bloodPheno(kid.g.abo);
+  var sex = Math.random()<0.5 ? 'm' : 'f';
+  var look = {
+    skin: Math.round((state.me.look.skin + state.sp.look.skin)/2),
+    hair: Math.random()<0.5 ? state.me.look.hair : state.sp.look.hair,
+    sex: sex
+  };
+  kid.pheno = p; kid.look = look; kid.sex = sex;
+  var kidName = (state.cur===0?'첫째':'둘째') + ' 자녀 (' + (sex==='m'?'아들':'딸') + ')';
+  var kidShirtColor = state.cur===0 ? '#5B8F4E' : '#C9762F';
+  var box = document.getElementById('babyBox');
+  box.hidden = false;
+  box.innerHTML = '<div class="card card-pad">'
+    + '<div class="babygrid">'
+    + '<div class="member" style="max-width:260px;margin:0 auto"><div class="nm">'+kidName+'</div>'+avatar(p, look, {uid:'kid'+state.cur, shirt: kidShirtColor, child:true})+'</div>'
+    + '<div><h3 style="font-size:17px;margin-bottom:8px">자녀의 유전자형과 표현형</h3>'
+    + '<div class="traitlist" style="justify-content:flex-start">'
+    + TRAITS.map(function(t){ return '<span>'+t.label+' '+kid.g[t.id]+' · '+p[t.id]+'</span>'; }).join('')
+    + '<span>혈액형 '+kid.g.abo+' · '+p.abo+'</span>'
+    + '</div>'
+    + '<p class="tiny" style="margin-top:10px">자녀의 성별은 성염색체(여자 XX · 남자 XY)에 의해 정해지며, 이 활동의 7가지 형질과는 따로 무작위로 결정됩니다.</p>'
+    + '<p class="tiny" style="margin-top:6px">키·피부색처럼 대립 형질이 뚜렷하지 않은 형질은 부모의 중간 정도로 나타나기도 합니다. 이 활동에서는 유전 형질로 다루지 않았어요.</p>'
+    + '</div></div></div>';
+  document.getElementById('afterBaby').hidden = false;
+  document.getElementById('note4').hidden = (state.cur !== 1);
+  document.getElementById('nextKidBtn').textContent = state.kids.length>=2 ? '가족 비교하러 가기 →' : '둘째 자녀 만들기 →';
+  if(state.kids.length>=2) renderRail();
+}
+
+/* ============ STEP 5 가족 ============ */
+function renderFamily(){
+  var host = document.getElementById('family');
+  var k1 = state.kids[0], k2 = state.kids[1];
+  if(!k1 || !k2 || !k1.pheno || !k2.pheno) return;
+  var mp = phenoOf(state.me), sp = phenoOf(state.sp);
+  function card(name, p, look, uid, shirt, cmp, isKid){
+    var vague = ['있음','없음','가능','불가능'];
+    var list = TRAITS.map(function(t){
+      var diff = cmp ? (cmp[t.id] !== p[t.id]) : false;
+      var txt = vague.indexOf(p[t.id])>=0 ? (t.label+' '+p[t.id]) : p[t.id];
+      return '<span class="'+(diff?'diff':'')+'">'+txt+'</span>';
+    }).join('') + '<span class="'+(cmp && cmp.abo!==p.abo?'diff':'')+'">'+p.abo+'</span>';
+    return '<div class="member"><div class="nm">'+name+'</div>'+avatar(p, look, {uid:uid, shirt:shirt, child:!!isKid})+'<div class="traitlist">'+list+'</div></div>';
+  }
+  function kidName(k, ord){ return ord + ' 자녀 (' + (k.sex==='m'?'아들':'딸') + ')'; }
+  var KID_SHIRTS = ['#5B8F4E','#C9762F'];
+  host.innerHTML =
+      card('나', mp, state.me.look, 'fm', state.me.look.sex==='m' ? '#2E6F7A' : '#B4566E', null)
+    + card('배우자', sp, state.sp.look, 'fs', state.sp.look.sex==='m' ? '#2E6F7A' : '#B4566E', null)
+    + card(kidName(k1,'첫째'), k1.pheno, k1.look, 'f1', KID_SHIRTS[0], k2.pheno, true)
+    + card(kidName(k2,'둘째'), k2.pheno, k2.look, 'f2', KID_SHIRTS[1], k1.pheno, true);
+}
+
+/* ============ STEP 6 퍼넷 사각형 ============ */
+var punnSel = TRAITS[0].id;
+var punnDone = {};
+function punnTotal(){ return TRAITS.length + 1; }
+function updateSaveState(){
+  var ids = TRAITS.map(function(t){ return t.id; }).concat(['abo']);
+  var n = ids.filter(function(id){ return punnDone[id]; }).length;
+  var sb = document.getElementById('saveImgBtn'), hint = document.getElementById('saveHint');
+  if(!sb) return;
+  if(n === ids.length){
+    sb.disabled = false;
+    hint.textContent = '확률 문제를 모두 맞혔어요! 가족 비교 이미지를 저장할 수 있습니다.';
+  } else {
+    sb.disabled = true;
+    hint.textContent = '확률 문제 ' + n + ' / ' + ids.length + ' 완료 — 7가지 형질을 모두 맞히면 저장할 수 있어요.';
+  }
+}
+function renderPunnett(){
+  var pick = document.getElementById('punnPick');
+  var all = TRAITS.concat([{id:'abo', label:'ABO 혈액형', sym:null}]);
+  pick.innerHTML = all.map(function(t){
+    return '<button type="button" data-t="'+t.id+'" aria-pressed="'+(punnSel===t.id)+'">'
+      + (punnDone[t.id] ? '✔ ' : '') + t.label + '</button>';
+  }).join('');
+  pick.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){ punnSel = b.dataset.t; renderPunnett(); });
+  });
+
+  var t = all.filter(function(x){return x.id===punnSel;})[0];
+  var mg = state.me.g[t.id], sg = state.sp.g[t.id];
+  var ma = [mg.charAt(0), mg.charAt(1)], sa = [sg.charAt(0), sg.charAt(1)];
+  var counts = {};
+  var html = '<table class="punnett"><caption class="sr">퍼넷 사각형</caption><tr><th scope="col"></th>';
+  sa.forEach(function(x){ html += '<th scope="col">'+x+'</th>'; });
+  html += '</tr>';
+  ma.forEach(function(m){
+    html += '<tr><th scope="row">'+m+'</th>';
+    sa.forEach(function(s){
+      var gt = t.sym ? combine(m,s) : combineBlood(m,s);
+      var ph = t.sym ? pheno(t, gt) : bloodPheno(gt);
+      counts[ph] = (counts[ph]||0)+1;
+      var cls = t.sym ? (ph===t.dom?'dom':'rec') : (ph==='O형'?'rec':'dom');
+      html += '<td class="'+cls+'">'+gt+'</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</table>';
+  document.getElementById('punn').innerHTML = html;
+
+  /* 형질의 우성·열성 안내 */
+  var lg;
+  if(t.sym){
+    var U = t.sym, L = t.sym.toLowerCase();
+    lg = '<div class="lgcard"><h4>'+t.label+' — 우성과 열성</h4>'
+       + '<div class="lgrow"><b class="d">'+U+'</b><span>우성 대립유전자 → <b style="font-family:inherit">'+t.dom+'</b></span></div>'
+       + '<div class="lgrow"><b class="r">'+L+'</b><span>열성 대립유전자 → <b style="font-family:inherit">'+t.rec+'</b></span></div>'
+       + '</div>';
+  } else {
+    lg = '<div class="lgcard"><h4>ABO 혈액형 — 우성과 열성</h4>'
+       + '<div class="lgrow"><b class="d">A</b><b class="d">B</b><span>O에 대해 우성</span></div>'
+       + '<div class="lgrow"><b class="r">O</b><span>A·B에 대해 열성</span></div>'
+       + '<p class="lgnote">A와 B 사이에는 우열 관계가 없습니다.</p></div>';
+  }
+  document.getElementById('punnLegend').innerHTML = lg;
+
+  /* 표현형 비율은 바로 보여 주지 않고 학생이 맞히는 문제로 낸다 */
+  var keys = Object.keys(counts);
+  var target = t.sym ? t.rec : keys[0];
+  var correct = (counts[target] || 0) * 25;
+  var targetLabel = phLabel(t, target);
+  var qtext = t.sym
+    ? '나(<b>'+mg+'</b>) × 배우자(<b>'+sg+'</b>) 사이에서 태어날 자녀가 <b>'+targetLabel+'</b>일 확률은 얼마일까요?'
+    : '나(<b>'+mg+'</b>) × 배우자(<b>'+sg+'</b>) 사이에서 태어날 자녀의 혈액형이 <b>'+target+'</b>일 확률은 얼마일까요?';
+  var done = !!punnDone[t.id];
+  var fullLine = keys.map(function(k){ return phLabel(t,k) + ' ' + counts[k] + '/4 (' + (counts[k]*25) + '%)'; }).join(' · ');
+  var wrap = document.getElementById('punnQuiz');
+  wrap.innerHTML = '<div class="q"><span class="ic">?</span><span>'+qtext+'</span></div>'
+    + '<div class="src">퍼넷 사각형의 네 칸 중 해당하는 칸이 몇 개인지 세어 보세요.</div>'
+    + '<div class="pct">' + [0,25,50,75,100].map(function(v){
+        return '<button type="button" data-v="'+v+'"'
+          + (done ? ' disabled' : '') + (done && v===correct ? ' data-res="ok"' : '') + '>'+v+'%</button>'; }).join('') + '</div>'
+    + '<div class="explain"'+(done?'':' hidden')+'>'
+    + (done ? '⭕ 맞아요. 네 칸 중 ' + (counts[target]||0) + '칸이므로 ' + correct + '%입니다.<br><b>전체 표현형의 비</b> — ' + fullLine
+        + (keys.length===1 ? '<br>한 가지 표현형만 나옵니다. 부모 중 한 명이 순종이라 다른 대립유전자가 만들어지지 않기 때문이에요.' : '') : '')
+    + '</div>';
+  var exp = wrap.querySelector('.explain');
+  updateSaveState();
+  wrap.querySelectorAll('.pct button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = +b.dataset.v, ok = (v === correct);
+      b.dataset.res = ok ? 'ok' : 'no';
+      exp.hidden = false;
+      if(ok){
+        punnDone[t.id] = true;
+        wrap.querySelectorAll('.pct button').forEach(function(x){ x.disabled = true; });
+        exp.innerHTML = '⭕ 맞아요. 네 칸 중 ' + (counts[target]||0) + '칸이므로 ' + correct + '%입니다.<br>'
+          + '<b>전체 표현형의 비</b> — ' + fullLine
+          + (keys.length===1 ? '<br>한 가지 표현형만 나옵니다. 부모 중 한 명이 순종이라 다른 대립유전자가 만들어지지 않기 때문이에요.' : '');
+        updateSaveState();
+        renderPunnett();
+      } else {
+        exp.innerHTML = '❌ 다시 세어 볼까요? 퍼넷 사각형 네 칸 가운데 <b>' + targetLabel + '</b>으로 나타나는 칸이 몇 개인지 확인해 보세요. 한 칸은 25%입니다.';
+      }
+    });
+  });
+}
+
+
+/* ============ 가족 비교 이미지 저장 ============ */
+function famMembers(){
+  var k1 = state.kids[0], k2 = state.kids[1];
+  if(!k1 || !k2 || !k1.pheno || !k2.pheno) return null;
+  return [
+    {name:'나', ph:phenoOf(state.me), look:state.me.look, uid:'sv0', shirt: state.me.look.sex==='m' ? '#2E6F7A' : '#B4566E', child:false},
+    {name:'배우자', ph:phenoOf(state.sp), look:state.sp.look, uid:'sv1', shirt: state.sp.look.sex==='m' ? '#2E6F7A' : '#B4566E', child:false},
+    {name:'첫째 자녀 ('+(k1.sex==='m'?'아들':'딸')+')', ph:k1.pheno, look:k1.look, uid:'sv2', shirt:'#5B8F4E', child:true},
+    {name:'둘째 자녀 ('+(k2.sex==='m'?'아들':'딸')+')', ph:k2.pheno, look:k2.look, uid:'sv3', shirt:'#C9762F', child:true}
+  ];
+}
+function svgToImage(svgText){
+  return new Promise(function(res, rej){
+    var img = new Image();
+    img.onload = function(){ res(img); };
+    img.onerror = function(e){ rej(e); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText);
+  });
+}
+function composeFamilyCanvas(){
+  var mem = famMembers();
+  if(!mem) return Promise.resolve(null);
+  var GAP = 16, PAD = 24, CARDW = 286, CARDH = 324, TEXTH = 176;
+  var W = PAD*2 + CARDW*4 + GAP*3, H = 96 + CARDH + TEXTH + 26;
+  var cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  var ctx = cv.getContext('2d');
+  ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#16222B';
+  ctx.font = '700 32px Jua, "Noto Sans KR", sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('유전 원리로 알아보는 미래의 내 가족', PAD, 52);
+  ctx.fillStyle = '#53666F';
+  ctx.font = '400 15px "Noto Sans KR", sans-serif';
+  ctx.fillText('중학교 과학 3 · Ⅴ. 생식과 유전 › 2. 유전', PAD, 76);
+  var stu = [state.student.no, state.student.name].filter(Boolean).join('  ');
+  if(stu){
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#16222B';
+    ctx.font = '700 20px "Noto Sans KR", sans-serif';
+    ctx.fillText(stu, W - PAD, 56);
+    ctx.textAlign = 'left';
+  }
+
+  return Promise.all(mem.map(function(m){
+    var svg = avatar(m.ph, m.look, {uid:m.uid, shirt:m.shirt, child:m.child});
+    svg = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" width="286" height="324" ');
+    return svgToImage(svg);
+  })).then(function(imgs){
+    mem.forEach(function(m, i){
+      var x = PAD + i*(CARDW+GAP), y = 96;
+      ctx.fillStyle = '#EFF4F2';
+      if(ctx.roundRect){ ctx.beginPath(); ctx.roundRect(x, y, CARDW, CARDH+TEXTH, 14); ctx.fill(); }
+      else { ctx.fillRect(x, y, CARDW, CARDH+TEXTH); }
+      ctx.drawImage(imgs[i], x, y+26, CARDW, CARDH);
+      ctx.fillStyle = '#20323A';
+      ctx.font = '400 17px Jua, "Noto Sans KR", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(m.name, x + CARDW/2, y + 20);
+      ctx.font = '400 13px "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#33474F';
+      var lines = TRAITS.map(function(t){ return phLabel(t, m.ph[t.id]); }).concat([m.ph.abo]);
+      lines.forEach(function(s, j){
+        ctx.fillText(s, x + CARDW/2, y + CARDH + 44 + j*17);
+      });
+    });
+    return cv;
+  });
+}
+function openFamilyImage(){
+  composeFamilyCanvas().then(function(cv){
+    if(!cv){ toast('먼저 두 자녀를 모두 만들어 주세요.'); return; }
+    var url;
+    try { url = cv.toDataURL('image/png'); }
+    catch(e){ toast('이미지를 만들 수 없어요.'); return; }
+    document.getElementById('imgModalImg').src = url;
+    document.getElementById('imgModal').hidden = false;
+    var saveBtn = document.getElementById('imgSave');
+    var hint = document.getElementById('imgModalHint');
+    saveBtn.hidden = true;
+    hint.textContent = '이미지를 길게 누르거나 오른쪽 클릭해서 저장할 수 있어요.';
+    // 일반 브라우저에서 열었을 때는 바로 내려받기
+    if(!(window.claude && window.claude.use)){
+      var a = document.createElement('a');
+      if('download' in a){
+        var stu0 = [state.student.no, state.student.name].filter(Boolean).join('_');
+        saveBtn.hidden = false;
+        hint.textContent = '';
+        saveBtn.onclick = function(){
+          a.href = url;
+          a.download = (stu0 ? stu0 + '_' : '') + '미래의_내_가족.png';
+          document.body.appendChild(a); a.click(); a.remove();
+          hint.textContent = '저장했어요!';
+        };
+      }
+    }
+    if(window.claude && window.claude.use){
+      window.claude.use('downloads').then(function(dl){
+        if(!dl) return;
+        hint.textContent = '';
+        saveBtn.hidden = false;
+        saveBtn.onclick = function(){
+          cv.toBlob(function(blob){
+            var stu2 = [state.student.no, state.student.name].filter(Boolean).join('_');
+          dl.save({filename: (stu2 ? stu2 + '_' : '') + '미래의_내_가족.png', data: blob}).then(function(){
+              hint.textContent = '저장했어요!';
+            }).catch(function(err){
+              hint.textContent = (err && err.code==='declined') ? '저장을 취소했어요.' : '저장하지 못했어요. 이미지를 길게 눌러 저장해 보세요.';
+            });
+          }, 'image/png');
+        };
+      }).catch(function(){});
+    }
+  }).catch(function(){ toast('이미지를 만드는 중 문제가 생겼어요.'); });
+}
+
+/* ============ 초기화 ============ */
+document.getElementById('pedigree').innerHTML = pedigreeSVG();
+
+inquiry('warmQ', {
+  q:'보조개 있음과 없음 중 우성 형질은 무엇일까요?',
+  choices:[
+    {t:'보조개 없음', ok:false, why:'다시 생각해 봐요. 보조개 있는 부모 사이에서 없는 자녀가 나왔다면, 부모는 열성 유전자를 하나씩 숨기고 있었던 것(Dd × Dd)입니다.'},
+    {t:'보조개 있음', ok:true,  why:'맞아요. 부모에게 없던 형질(보조개 없음)이 자녀에게 나타났다면, 그 형질은 부모에게 숨어 있던 <b>열성</b>입니다. 따라서 부모가 가진 <b>보조개 있음이 우성</b>이에요.'},
+    {t:'가계도만으로는 알 수 없다', ok:false, why:'알 수 있어요. <b>부모와 다른 형질의 자녀</b>가 나오는 경우가 우열을 판단하는 결정적인 단서입니다.'}
+  ]
+});
+
+inquiry('note1', {
+  q:'열성 형질을 가진 사람의 유전자형은 왜 한 가지로 정해질까요?',
+  choices:[
+    {t:'열성 형질은 유전되지 않기 때문', ok:false, why:'열성 형질도 똑같이 유전됩니다. 다만 우성 대립유전자에 가려져 겉으로 드러나지 않을 뿐이에요.'},
+    {t:'열성 유전자가 우성 유전자보다 개수가 많기 때문', ok:false, why:'대립유전자는 항상 한 쌍(2개)입니다. 개수가 아니라 <b>어떤 조합</b>인지가 표현형을 결정해요.'},
+    {t:'열성 대립유전자가 2개 모두 있어야만 열성 형질이 겉으로 드러나기 때문', ok:true, why:'정확합니다. 우성 대립유전자가 하나라도 있으면 우성 형질이 나타나므로, 열성 형질인 사람은 반드시 순종(aa)입니다.'}
+  ]
+});
+
+inquiry('note2', {
+  q:'나와 배우자가 모두 우성 형질인데도 자녀에게 열성 형질이 나타날 수 있습니다. 어떤 경우일까요?',
+  choices:[
+    {t:'두 사람 모두 잡종(Aa)일 때', ok:true, why:'맞아요. Aa × Aa면 자녀가 aa가 될 확률이 1/4입니다. 앞의 가계도에서 보조개 없는 자녀가 태어난 상황과 같습니다.'},
+    {t:'한 사람이 순종(AA)이기만 하면 가능', ok:false, why:'한 사람이 AA이면 모든 생식세포에 A가 들어갑니다. 자녀는 최소한 A를 하나 받으므로 열성 형질이 나올 수 없어요.'},
+    {t:'우성 형질인 부모에게서는 절대 나올 수 없다', ok:false, why:'나올 수 있습니다. 우성 형질인 사람은 순종(AA)일 수도, 잡종(Aa)일 수도 있기 때문이에요.'}
+  ]
+});
+
+inquiry('note3', {
+  q:'생식세포가 만들어질 때, 한 쌍을 이루던 대립유전자는 어떻게 될까요?',
+  choices:[
+    {t:'우성 대립유전자만 생식세포로 들어간다', ok:false, why:'우열 관계는 유전자형이 정해진 뒤 <b>표현형이 결정될 때</b> 작용합니다. 생식세포에는 우성·열성과 관계없이 <b>무작위로 하나</b>가 들어가요.'},
+    {t:'둘로 나뉘어 서로 다른 생식세포에 하나씩 들어간다', ok:true, why:'정확합니다. 이것이 <b>분리의 법칙</b>이에요. 둘 중 어느 쪽이 들어갈지는 우연히 정해집니다.'},
+    {t:'두 개가 함께 한 생식세포로 들어간다', ok:false, why:'그러면 자녀는 한 형질에 대립유전자를 4개 갖게 됩니다. 생식세포에는 한 쌍 중 <b>하나만</b> 들어가요.'}
+  ]
+});
+
+inquiry('note4', {
+  q:'각 형질에 대해 두 생식세포의 대립유전자끼리 짝을 짓는 것은 무엇을 뜻할까요?',
+  choices:[
+    {t:'염색체의 수가 2배로 늘어나는 것', ok:false, why:'수정으로 생식세포 2개가 합쳐지면서 자녀의 염색체 수는 부모와 같아집니다. 계속 2배가 되는 것은 아니에요.'},
+    {t:'감수 분열이 일어나는 것', ok:false, why:'감수 분열은 대립유전자가 <b>나뉘는</b> 과정입니다. 짝을 짓는 것은 반대로 다시 <b>합쳐지는</b> 과정이에요.'},
+    {t:'정자와 난자가 만나 수정되어 수정란이 만들어지는 것', ok:true, why:'맞아요. 수정으로 자녀는 아버지에게서 1개, 어머니에게서 1개씩 대립유전자를 받아 다시 <b>한 쌍</b>을 갖게 됩니다.'}
+  ]
+});
+
+inquiry('note5', {
+  q:'두 자녀의 표현형이 모두 같지는 않습니다. 그 까닭은 무엇일까요?',
+  choices:[
+    {t:'생식세포를 만들 때 어떤 대립유전자가 들어갈지 우연히 정해지기 때문', ok:true, why:'맞아요. 같은 부모라도 생식세포마다 들어가는 대립유전자 조합이 달라지므로, 자녀마다 유전자형과 표현형이 다를 수 있습니다.'},
+    {t:'둘째는 첫째의 형질을 물려받기 때문', ok:false, why:'형제자매 사이에는 유전이 일어나지 않습니다. 두 자녀 모두 <b>부모에게서 각각</b> 유전자를 받아요.'},
+    {t:'부모의 유전자가 자녀마다 다르게 변하기 때문', ok:false, why:'부모의 유전자형은 그대로입니다. 달라지는 것은 <b>어떤 생식세포가 수정에 참여하는가</b>예요.'}
+  ]
+});
+
+
+['stuNo','stuName'].forEach(function(id){
+  var el = document.getElementById(id);
+  el.addEventListener('input', function(){
+    state.student[id==='stuNo' ? 'no' : 'name'] = el.value.trim();
+    renderRail();
+  });
+});
+document.getElementById('note4').hidden = true;
+renderRail();
+renderTraits('meTraits','me'); renderLooks('meLooks','me'); drawAvatar('me');
+renderTraits('spTraits','sp'); renderLooks('spLooks','sp'); drawAvatar('sp');
+
+document.querySelectorAll('[data-go]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var n = +b.dataset.go;
+    if(n===3) renderMeiosis();
+    go(n);
+  });
+});
+document.getElementById('rollBtn').addEventListener('click', function(){ renderMeiosis(); rollGametes(); });
+document.getElementById('checkBtn').addEventListener('click', checkPredict);
+document.getElementById('revealBtn').addEventListener('click', revealBaby);
+document.getElementById('nextKidBtn').addEventListener('click', function(){
+  if(state.kids.length>=2){ go(5); return; }
+  state.cur = 1;
+  document.getElementById('babyBox').hidden = true;
+  document.getElementById('afterBaby').hidden = true;
+  document.getElementById('note4').hidden = true;
+  document.getElementById('toPredict').disabled = true;
+  updateTitles();
+  renderMeiosis();
+  go(3);
+});
+document.getElementById('saveImgBtn').addEventListener('click', openFamilyImage);
+document.getElementById('imgClose').addEventListener('click', function(){
+  document.getElementById('imgModal').hidden = true;
+});
+document.getElementById('imgModal').addEventListener('click', function(e){
+  if(e.target === this) this.hidden = true;
+});
+document.getElementById('restart').addEventListener('click', function(){
+  solved = {};
+  punnDone = {};
+  resetKids();
+  updateSaveState();
+  state.step = 1;
+  go(1);
+});
+
+})();
 </script>
 </body>
 </html>
